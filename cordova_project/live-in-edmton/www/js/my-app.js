@@ -1,5 +1,4 @@
 // Initialize app and store it to myApp variable for futher access to its methods
-console.log("aaaaaa");
 var myApp = new Framework7({material:true});
 
 // We need to use custom DOM library, let's save it to $$ variable:
@@ -14,7 +13,6 @@ var mainView = myApp.addView('.view-main', {
 // Now we need to run the code that will be executed only for About page.
 
 
-
 // Option 2. Using one 'pageInit' event handler for all pages:
 $$(document).on('pageInit', function (e) {
     // Get page data from event data
@@ -24,10 +22,17 @@ $$(document).on('pageInit', function (e) {
         // Following code will be executed for page with data-page attribute equal to "about"
         myApp.alert('Here comes About page');
 }
-})
+});
 
 // Option 2. Using live 'pageInit' event handlers for each page
 $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
     // Following code will be executed for page with data-page attribute equal to "about"
     myApp.alert('Here comes About page');
-})
+});
+
+
+    $$("#jumpButton").click(function(){
+        console.log("click");
+        $$("#view2Tab").trigger("click");
+        $$("#view2Tab").trigger("click");
+    });

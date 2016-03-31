@@ -9,15 +9,23 @@ function initialize() {
     };
     var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
     // Try HTML5 geolocation.
+    var myCenter;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
+            myCenter = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-
-
-            map.setCenter(pos);
+            map.setCenter(myCenter);
+            var marker=new google.maps.Marker({
+                position:myCenter,
+                map:map,
+                animation:google.maps.Animation.BOUNCE
+            });
+            var infowindow = new google.maps.InfoWindow({
+                content:"You"
+            });
+            infowindow.open(map,marker);
         }, function() {
             //handleLocationError(true, infoWindow, map.getCenter());
         });
@@ -25,5 +33,6 @@ function initialize() {
         // Browser doesn't support Geolocation
         //handleLocationError(false, infoWindow, map.getCenter());
     }
+
 }
 google.maps.event.addDomListener(window, 'load', initialize);
