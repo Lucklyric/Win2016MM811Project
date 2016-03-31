@@ -1,7 +1,7 @@
 import urllib2
 import json
 from pprint import pprint
-
+import mysql.connector
 #Neighbourhood Boundaries
 urlNB = "https://data.edmonton.ca/api/views/nckr-nnqj/rows.json?accessType=DOWNLOAD"
 #Edmonton Catholic Schools (2015 - 2016)
@@ -23,5 +23,5 @@ urlT="https://data.edmonton.ca/api/views/eecg-fc54/rows.json?accessType=DOWNLOAD
 jfile = urllib2.urlopen(urlNB).read()
 data = json.loads(jfile)
 #for i in range len(data)
-pprint(data["meta"]["view"]["rowsUpdatedAt"])
+pprint(data["meta"]["view"]["name"])
 
