@@ -28,48 +28,57 @@
         * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
             * Enable inline JS: add 'unsafe-inline' to default-src
     -->
-    <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-    <meta name="format-detection" content="telephone=no">
-    <meta charset="utf-8">
-    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta http-equiv="Content-Security-Policy"-->
+    <!--content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <!--<meta charset="utf-8">-->
     <meta name="viewport"
-          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--<meta name="apple-mobile-web-app-status-bar-style" content="black">-->
     <!-- Path to Framework7 iOS CSS theme styles-->
-    <link rel="stylesheet" href="dist/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="dist/css/framework7.material.min.css">
     <!-- Path to Framework7 iOS related color styles -->
-    <link rel="stylesheet" href="dist/css/framework7.ios.colors.min.css">
+    <link rel="stylesheet" href="dist/css/framework7.material.colors.min.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
     <title>Welcome to Edmonton</title>
 </head>
-<body  class="layout-white">
+<body class="layout-dark theme-purple">
 <!-- Status bar overlay for full screen mode (PhoneGap) -->
 <div class="statusbar-overlay"></div>
 <!-- Panels overlay-->
 <div class="panel-overlay"></div>
-
+<!-- Bottom Tabbar-->
+<div class="toolbar tabbar ripple-red tabbar-labels">
+    <div class="toolbar-inner">
+        <a href="#view-1" class="tab-link ripple-white active"><img src="img/icons/map.ico" height="26" width="26"><span
+                class="tabbar-label">Map</span></a>
+        <a href="#view-2" class="tab-link ripple-white"><img src="img/icons/search.png" height="26" width="26"><span
+                class="tabbar-label">Query</span></a>
+    </div>
+</div>
 <!-- Views -->
 <div class="views tabs toolbar-through">
 
     <div id="view-1" class="view view-main tab active">
-        <div class="pages navbar-fixed">
-            <div data-page="index-2" class="page">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="center">Welcome to Edmonton</div>
-                    </div>
-                </div>
+        <div class="pages">
+            <div data-page="index-1" class="page">
+                <!--<div class="navbar">-->
+                <!--<div class="navbar-inner">-->
+                <!--<div class="center">Welcome to Edmonton</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
                 <div class="page-content">
 
-                    <div class="content-block">
-                        <p>Mauris commodo lacus at nisl lacinia, nec facilisis erat rhoncus. Sed eget pharetra nunc.
-                            Aenean vitae vehicula massa, sed sagittis ante. Quisque luctus nec velit dictum
-                            convallis. Nulla facilisi. Ut sed erat nisi. Donec non dolor massa. Mauris malesuada
-                            dolor velit, in suscipit leo consectetur vitae. Duis tempus ligula non eros pretium
-                            condimentum. Cras sed dolor odio.</p>
+                    <div id="google-div" class="content-block" style="height: 60%;padding:1px;margin-top: -1px;margin-bottom: 0px">
+                        <div id="googleMap" style="height: 100% "></div>
+                    </div>
+                    <!-- Virtual List -->
+                    <div class="list-block virtual-list"style="background-color: cornsilk; padding:1px;margin-top: 0px">
+                        <!-- 内容置空 -->
                     </div>
                 </div>
             </div>
@@ -78,16 +87,18 @@
 
     <!-- Second view (for second wrap)-->
     <div id="view-2" class="view tab">
-        <div class="pages navbar-fixed">
+        <div class="pages">
             <div data-page="index-2" class="page">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="center">Settings</div>
-                    </div>
-                </div>
+
+                <!--<div class="navbar">-->
+                <!--<div class="navbar-inner">-->
+                <!--<div class="center">Settings</div>-->
+                <!--</div>-->
+                <!--</div>-->
                 <div class="page-content">
 
                     <div class="content-block">
+
                         <p>Mauris commodo lacus at nisl lacinia, nec facilisis erat rhoncus. Sed eget pharetra nunc.
                             Aenean vitae vehicula massa, sed sagittis ante. Quisque luctus nec velit dictum
                             convallis. Nulla facilisi. Ut sed erat nisi. Donec non dolor massa. Mauris malesuada
@@ -98,18 +109,15 @@
             </div>
         </div>
     </div>
-    <!-- Bottom Tabbar-->
-    <div class="toolbar tabbar tabbar-labels">
-        <div class="toolbar-inner">
-            <a href="#view-1" class="tab-link active"><img src="img/icons/map.ico" height="30" width="30"><span class="tabbar-label">Map</span></a>
-            <a href="#view-2" class="tab-link"><img src="img/icons/search.png" height="30" width="30"><span class="tabbar-label">Query</span></a>
-        </div>
-    </div>
+
 </div>
 <!--<script type="text/javascript" src="cordova.js"></script>-->
 <!-- Path to Framework7 Library JS-->
 <script type="text/javascript" src="dist/js/framework7.min.js"></script>
 <!-- Path to your app js-->
 <script type="text/javascript" src="js/my-app.js"></script>
+<script type="text/javascript" src="js/maps.js"></script>
+<script type="text/javascript" src="js/google_map.js"></script>
+
 </body>
 </html>
