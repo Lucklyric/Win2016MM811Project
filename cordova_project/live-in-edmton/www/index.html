@@ -53,7 +53,8 @@
 <!-- Bottom Tabbar-->
 <div class="toolbar tabbar ripple-red tabbar-labels">
     <div class="toolbar-inner">
-        <a href="#view-1" class="tab-link ripple-white active"><img src="img/icons/map.ico" height="26" width="26"><span
+        <a href="#view-1" class="tab-link active ripple-white "><img src="img/icons/map.ico" height="26"
+                                                                     width="26"><span
                 class="tabbar-label">Map</span></a>
         <a href="#view-2" class="tab-link ripple-white"><img src="img/icons/search.png" height="26" width="26"><span
                 class="tabbar-label">Query</span></a>
@@ -63,8 +64,26 @@
 <div class="views tabs toolbar-through">
 
     <div id="view-1" class="view view-main tab active">
+        <div id="google-div" class="content-block"
+             style="height: 60%;padding:1px;margin-top: -1px;margin-bottom: 0px">
+            <div id="googleMap" style="height: 100% "></div>
+        </div>
         <div class="pages">
-            <div data-page="index-1" class="page">
+            <!--<div data-page="index-1" class="page" style="height: 60%">-->
+                <!--&lt;!&ndash;<div class="navbar">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="navbar-inner">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="center">Welcome to Edmonton</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--<div class="page-content">-->
+                    <!--&lt;!&ndash; Content block &ndash;&gt;-->
+
+
+
+                <!--</div>-->
+            <!--</div>-->
+            <div data-page="index-2" class="page" style="height: 30%">
                 <!--<div class="navbar">-->
                 <!--<div class="navbar-inner">-->
                 <!--<div class="center">Welcome to Edmonton</div>-->
@@ -72,16 +91,81 @@
                 <!--</div>-->
 
                 <div class="page-content">
+                    <!-- Content block -->
+                    <div class="list-block inset color-pink" >
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media">
+                                    <i class="icon my-icon"></i>
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-title">
+                                        List element title
+                                    </div>
+                                    <div class="item-after">
+                                        List element label
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media">
+                                    <i class="icon my-icon"></i>
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-title">
+                                        List element title
+                                    </div>
+                                    <div class="item-after">
+                                        List element label
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media">
+                                    <i class="icon my-icon"></i>
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-title">
+                                        List element title
+                                    </div>
+                                    <div class="item-after">
+                                        List element label
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media">
+                                    <i class="icon my-icon"></i>
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-title">
+                                        List element title
+                                    </div>
+                                    <div class="item-after">
+                                        List element label
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
 
-                    <div id="google-div" class="content-block" style="height: 60%;padding:1px;margin-top: -1px;margin-bottom: 0px">
-                        <div id="googleMap" style="height: 100% "></div>
-                    </div>
-                    <!-- Virtual List -->
-                    <div class="list-block virtual-list"style="background-color: cornsilk; padding:1px;margin-top: 0px">
-                        <!-- 内容置空 -->
                     </div>
                 </div>
             </div>
+            <!--<div data-page="index-list" class="page">-->
+            <!--<div class="page-content">-->
+            <!--aaaaaaa-->
+            <!--&lt;!&ndash; Virtual List &ndash;&gt;-->
+            <!--<div class="list-block virtual-list"style="background-color: cornsilk; padding:1px;margin-top: 0px">-->
+            <!--&lt;!&ndash; 内容置空 &ndash;&gt;-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
 
@@ -111,7 +195,7 @@
     </div>
 
 </div>
-<!--<script type="text/javascript" src="cordova.js"></script>-->
+<script type="text/javascript" src="cordova.js"></script>
 <!-- Path to Framework7 Library JS-->
 <script type="text/javascript" src="dist/js/framework7.min.js"></script>
 <!-- Path to your app js-->
