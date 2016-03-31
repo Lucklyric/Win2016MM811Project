@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+    <!--
+    Customize this policy to fit your own app's needs. For more guidance, see:
+        https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+    Some notes:
+        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+        * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add 'unsafe-inline' to default-src
+    -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="utf-8">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- Path to Framework7 iOS CSS theme styles-->
+    <link rel="stylesheet" href="dist/css/framework7.ios.min.css">
+    <!-- Path to Framework7 iOS related color styles -->
+    <link rel="stylesheet" href="dist/css/framework7.ios.colors.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css">
+    <title>Welcome to Edmonton</title>
+</head>
+<body  class="layout-white">
+<!-- Status bar overlay for full screen mode (PhoneGap) -->
+<div class="statusbar-overlay"></div>
+<!-- Panels overlay-->
+<div class="panel-overlay"></div>
+
+<!-- Views -->
+<div class="views tabs toolbar-through">
+
+    <div id="view-1" class="view view-main tab active">
+        <div class="pages navbar-fixed">
+            <div data-page="index-2" class="page">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="center">Welcome to Edmonton</div>
+                    </div>
+                </div>
+                <div class="page-content">
+
+                    <div class="content-block">
+                        <p>Mauris commodo lacus at nisl lacinia, nec facilisis erat rhoncus. Sed eget pharetra nunc.
+                            Aenean vitae vehicula massa, sed sagittis ante. Quisque luctus nec velit dictum
+                            convallis. Nulla facilisi. Ut sed erat nisi. Donec non dolor massa. Mauris malesuada
+                            dolor velit, in suscipit leo consectetur vitae. Duis tempus ligula non eros pretium
+                            condimentum. Cras sed dolor odio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second view (for second wrap)-->
+    <div id="view-2" class="view tab">
+        <div class="pages navbar-fixed">
+            <div data-page="index-2" class="page">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="center">Settings</div>
+                    </div>
+                </div>
+                <div class="page-content">
+
+                    <div class="content-block">
+                        <p>Mauris commodo lacus at nisl lacinia, nec facilisis erat rhoncus. Sed eget pharetra nunc.
+                            Aenean vitae vehicula massa, sed sagittis ante. Quisque luctus nec velit dictum
+                            convallis. Nulla facilisi. Ut sed erat nisi. Donec non dolor massa. Mauris malesuada
+                            dolor velit, in suscipit leo consectetur vitae. Duis tempus ligula non eros pretium
+                            condimentum. Cras sed dolor odio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bottom Tabbar-->
+    <div class="toolbar tabbar tabbar-labels">
+        <div class="toolbar-inner">
+            <a href="#view-1" class="tab-link active"><img src="img/icons/map.ico" height="30" width="30"><span class="tabbar-label">Map</span></a>
+            <a href="#view-2" class="tab-link"><img src="img/icons/search.png" height="30" width="30"><span class="tabbar-label">Query</span></a>
+        </div>
+    </div>
+</div>
+<!--<script type="text/javascript" src="cordova.js"></script>-->
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="dist/js/framework7.min.js"></script>
+<!-- Path to your app js-->
+<script type="text/javascript" src="js/my-app.js"></script>
+</body>
+</html>
