@@ -30,7 +30,9 @@ $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
     myApp.alert('Here comes About page');
 });
 
-$$("#jumpButton").click(function(){
-    console.log("click");
-    $$("#view2Tab").click();
-});
+
+    $$("#jumpButton").click(function(){
+        console.log("click");
+        $$("#view2Tab").trigger("click");
+        $$("#view2Tab").trigger("click");
+    });
