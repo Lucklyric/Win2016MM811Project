@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS relative_dataset (
   ID int(9) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
   DATASET_NAME varchar(30) NOT NULL,
   DATASET_URL varchar(300) NOT NULL,
+  DATASET_ID int(20) NOT NULL,
   DATASET_LASTUPADE timestamp NOT NULL,
   DATASET_MAX_VALUE int(9) unsigned NOT NULL,
   CREATE_TS timestamp NOT NULL 
@@ -87,3 +88,7 @@ INSERT INTO users
 VALUES 
 ("Li","Hongzu","admin2","admin");
 
+INSERT INTO relative_dataset
+(DATASET_NAME,DATASET_URL,DATASET_ID,DATASET_LASTUPADE,DATASET_MAX_VALUE)
+VALUES 
+("","","","","");
