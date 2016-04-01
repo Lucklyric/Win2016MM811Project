@@ -2,7 +2,6 @@ import urllib2
 import json
 from pprint import pprint
 import mysql.connector
-
 cnx = mysql.connector.connect(user='root', password='',
                               host='localhost',
                               database='mm811project')
@@ -28,8 +27,8 @@ def get_min_max(polygon):
     for i in range(len(coords)):
         lati = coords[i].split()[0]
         longi = coords[i].split()[1]
-        latis.append(lati)
-        longis.append(longi)
+        latis.append(float(lati.strip()))
+        longis.append(float(longi.strip()))
     latis.sort()
     longis.sort()
     min_max=[]
@@ -38,6 +37,7 @@ def get_min_max(polygon):
     min_max.append(longis[0])
     min_max.append(longis[len(longis)-1])
     return min_max
+
 #Neighbourhood name
 urlNN = "https://data.edmonton.ca/api/views/65fr-66s6/rows.json?accessType=DOWNLOAD"
 #Neighbourhood Boundaries
@@ -64,28 +64,30 @@ dataNB = json.loads(jfile)
 jfile = urllib2.urlopen(urlNC).read()
 dataNC = json.loads(jfile)
 
-
-#add_neighbourhood = ("INSERT INTO neighbourhood_tmp "
-               #"(NEIGHBOURHOOD_NAME,NEIGHBOURHOOD_AREA,NEIGHBOURHOOD_LATI,NEIGHBOURHOOD_LONG) "
-               #"VALUES (%s,%s,%s,%s)")
-#for i in range(len(dataNC["meta"]["view"]["columns"])):
-    #pprint(dataNC["meta"]["view"]["columns"][i]["name"])
-#area=""
-#latitude=0
-#longitude=0
-#for i in range(len(dataNN["data"])):
-    #for j in range(len(dataNB["data"])):
-        #if dataNB["data"][i][8] == dataNN["data"][i][8]:
-            #area = dataNB["data"][i][9]
-            #break
-    #for j in range(len(dataNC["data"])):
-        #if dataNC["data"][i][9] == dataNN["data"][i][8]:
-            #latitude = dataNC["data"][i][10]
-            #longitude = dataNC["data"][i][11]
-            #break    
-    #neighbourdata=(dataNN["data"][i][8],area,latitude,longitude)
-    #cursor.execute(add_neighbourhood, neighbourdata) 
-    #cnx.commit()
+pprint(dataNB["data"][0][9])
+poly = get_min_max(dataNB["data"][0][9])
+pprint(poly)
+add_neighbourhood = ("INSERT INTO neighbourhood_tmp "
+               "(NEIGHBOURHOOD_NAME,NEIGHBOURHOOD_AREA,NEIGHBOURHOOD_LATI,NEIGHBOURHOOD_LONG) "
+               "VALUES (%s,%s,%s,%s)")
+for i in range(len(dataNC["meta"]["view"]["columns"])):
+    pprint(dataNC["meta"]["view"]["columns"][i]["name"])
+area=""
+latitude=0
+longitude=0
+for i in range(len(dataNN["data"])):
+    for j in range(len(dataNB["data"])):
+        if dataNB["data"][i][8] == dataNN["data"][i][8]:
+            area = dataNB["data"][i][9]
+            break
+    for j in range(len(dataNC["data"])):
+        if dataNC["data"][i][9] == dataNN["data"][i][8]:
+            latitude = dataNC["data"][i][10]
+            longitude = dataNC["data"][i][11]
+            break    
+    neighbourdata=(dataNN["data"][i][8],area,latitude,longitude)
+    cursor.execute(add_neighbourhood, neighbourdata) 
+    cnx.commit()
     
 #process the other data and put in the database
 
