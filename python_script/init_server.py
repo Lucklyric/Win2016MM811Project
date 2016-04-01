@@ -38,6 +38,9 @@ def get_min_max(polygon):
     min_max.append(longis[len(longis)-1])
     return min_max
 
+def check_inside(coord):
+    coord;
+
 #Neighbourhood name
 urlNN = "https://data.edmonton.ca/api/views/65fr-66s6/rows.json?accessType=DOWNLOAD"
 #Neighbourhood Boundaries
@@ -89,26 +92,31 @@ for i in range(len(dataNN["data"])):
     cursor.execute(add_neighbourhood, neighbourdata) 
     cnx.commit()
     
-#process the other data and put in the database
-
-#pprint(data["meta"]["view"]["name"])
+#process the attribute data and put in the database
 
 #jfile = urllib2.urlopen(urlP).read()
-#data = json.loads(jfile)
+#dataP = json.loads(jfile)
 #pprint(data["meta"]["view"]["name"])
 
 #jfile = urllib2.urlopen(urlEPS).read()
-#data = json.loads(jfile)
+#dataEPS = json.loads(jfile)
 #pprint(data["meta"]["view"]["name"])
 
 #jfile = urllib2.urlopen(urlECS).read()
-#data = json.loads(jfile)
+#dataECS = json.loads(jfile)
 #pprint(data["meta"]["view"]["name"])
 
 #jfile = urllib2.urlopen(urlDUST).read()
-#data = json.loads(jfile)
+#dataDUST = json.loads(jfile)
 #pprint(data["meta"]["view"]["name"])
 
+#jfile = urllib2.urlopen(urlE).read()
+#dataE = json.loads(jfile)
+#pprint(dataE["meta"]["view"]["name"])
+
+#jfile = urllib2.urlopen(urlA).read()
+#dataA = json.loads(jfile)
+#pprint(data["meta"]["view"]["name"])
 
 
 

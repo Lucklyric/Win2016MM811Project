@@ -38,32 +38,32 @@ def json_output():
         cursor.execute("SELECT * FROM major_dataset")
         data = cursor.fetchall()
         for row in data:
-            #print(row[1])
+            print(row[1])
             cursorn=cnx.cursor()
-            cursorn.execute("SELECT * FROM neighbourhood_tmp",row[1])
+            cursorn.execute("SELECT * FROM neighbourhood_tmp WHERE NEIGHBOURHOOD_NAME='%s'"%row[1])
             ndata = cursorn.fetchall()
             pprint(cursorn.rowcount)
-            area=[]
-            centroid=[]       
-            for r in ndata:
-                #pprint(r[1])
-                area=convert_to_list(r[1])
-                latitude=r[2]
-                longitude=r[3]
-            attributes={}
-            attributes["attributes"]=[row[2],row[3],row[4],row[5],row[6],row[7],row[9],row[9],row[10],row[11],row[12],row[13],row[14],row[15],row[16],row[17]]
-            area_dist={}
-            area_dist["area"]=area;
-            lati_dist={}
-            longi_dist={}
-            lati_dist["latitude"]=latitude
-            longi_dist["longitude"]=longitude
-            sequence=[attributes,area_dist,lati_dist,longi_dist]
-            neibourhood={}        
-            neibourhood[row[1]]=sequence
-            out_array.append(neibourhood)
-            cursorn.close()
-        json.dump(out_array, outfile)               
+            if cursorn.rowcount>0:
+                area=[]
+                centroid=[]   
+                latitude=0
+                longitude=0
+                for r in ndata:
+                    #pprint(r[1])
+                    area=convert_to_list(r[1])
+                    latitude=r[2]
+                    longitude=r[3]
+                sequence={}
+                sequence["attributes"]=[row[2],row[3],row[4],row[5],row[6],row[7],row[9],row[9],row[10],row[11],row[12],row[13],row[14],row[15],row[16],row[17]]
+                sequence["area"]=area
+                sequence["latitude"]=latitude
+                sequence["longitude"]=longitude                
+                neibourhood={}        
+                neibourhood[row[1]]=sequence
+                out_array.append(neibourhood)
+                cursorn.close()
+        if len(out_array)>0:
+            json.dump(out_array, outfile)               
 
 def ioio():
     with open('output.json') as data_file:    
