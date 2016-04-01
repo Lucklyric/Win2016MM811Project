@@ -34,12 +34,13 @@ def convert_to_list(polygon):
 
 def json_output():
     with open('output.json', 'wb') as outfile:
+        out_array=[]
         cursor.execute("SELECT * FROM major_dataset")
         data = cursor.fetchall()
         for row in data:
-            pprint(row[1])
+            #print(row[1])
             cursorn=cnx.cursor()
-            cursorn.execute("SELECT * FROM neighbourhood_tmp WHERE NEIGHBOURHOOD_NAME='?'",row[1])
+            cursorn.execute("SELECT * FROM neighbourhood_tmp",row[1])
             ndata = cursorn.fetchall()
             pprint(cursorn.rowcount)
             area=[]
@@ -49,13 +50,28 @@ def json_output():
                 area=convert_to_list(r[1])
                 latitude=r[2]
                 longitude=r[3]
-            sequence=[row[2],row[3],row[4],row[5],row[6],row[7],row[9],row[9],row[10],row[11],row[12],row[13],row[14],row[15],row[16],row[17],area,latitude,longitude]
+            attributes={}
+            attributes["attributes"]=[row[2],row[3],row[4],row[5],row[6],row[7],row[9],row[9],row[10],row[11],row[12],row[13],row[14],row[15],row[16],row[17]]
+            area_dist={}
+            area_dist["area"]=area;
+            lati_dist={}
+            longi_dist={}
+            lati_dist["latitude"]=latitude
+            longi_dist["longitude"]=longitude
+            sequence=[attributes,area_dist,lati_dist,longi_dist]
             neibourhood={}        
             neibourhood[row[1]]=sequence
-            json.dump(neibourhood, outfile)   
-            #pprint(neighbourhood)
+            out_array.append(neibourhood)
             cursorn.close()
+        json.dump(out_array, outfile)               
 
-json_output()
+def ioio():
+    with open('output.json') as data_file:    
+        data = json.load(data_file)
+    
+    print data    
+
+#json_output()
+ioio()
 cursor.close()
 cnx.close()    
