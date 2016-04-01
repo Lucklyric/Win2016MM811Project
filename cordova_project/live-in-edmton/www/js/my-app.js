@@ -31,8 +31,11 @@ $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
 });
 
 
+$(document).ready(function(){
     $$("#jumpButton").click(function(){
         console.log("click");
         $$("#view2Tab").trigger("click");
         $$("#view2Tab").trigger("click");
     });
+    $()
+});
