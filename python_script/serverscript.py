@@ -3,10 +3,7 @@ import json
 from pprint import pprint
 import mysql.connector
 
-cnx = mysql.connector.connect(user='root', password='',
-                              host='localhost',
-                              database='mm811project')
-cursor = cnx.cursor()
+
 def get_polygon(poly):
     coords=[]
     poly=poly.replace("(","")
@@ -32,6 +29,7 @@ def convert_to_list(polygon):
     return coords_list
 
 def json_output():
+    cursor = cnx.cursor()    
     with open('output.json', 'wb') as outfile:
         out_array=[]
         cursor.execute("SELECT * FROM major_dataset")
@@ -63,15 +61,27 @@ def json_output():
                 out_array.append(neibourhood)
                 cursorn.close()
         if len(out_array)>0 and latitude!=0 and longitude!=0:
-            json.dump(out_array, outfile)               
+            json.dump(out_array, outfile)  
+            
+        cursor.close()
 
 def ioio():
     with open('output.json') as data_file:    
         data = json.load(data_file)
-    
     print data    
 
+def calculate_score(attributes):
+    score=0
+    for i in range(len(attributes)):
+        if attributes[i]==-1:
+            continue
+        
+    
+    
+cnx = mysql.connector.connect(user='root', password='',
+                              host='localhost',
+                              database='mm811project')
 json_output()
 #ioio()
-cursor.close()
-cnx.close()    
+
+cnx.close()           

@@ -88,9 +88,9 @@ def insert_to_major():
             NUM_EMPLOYMENT_EMPLOYED=0  
             la=0
             lo=0
-            print row[0]            
+            #print row[0]            
             if row[1] is None or row[1]=="":
-                continue
+                min_max=[]
             else:
                 min_max=[]
                 min_max=get_min_max(row[1])
@@ -109,43 +109,44 @@ def insert_to_major():
                     lo=dataECS["data"][i][21]
                     if check_inside(float(la.strip()),float(lo.strip()),min_max):
                         NUM_CATHOLIC_SCHOOLS+=1
-                for i in range(len(dataDUST["data"])):
-                    if dataDUST["data"][i][10].lower()==row[0].lower():
-                        NUM_SINGLE+=int(dataDUST["data"][i][11])
-                        NUM_DUPLEX+=int(dataDUST["data"][i][12])
-                        NUM_ROW_HOUSE+=int(dataDUST["data"][i][13])
-                        NUM_APARTMENT_FIVE+=int(dataDUST["data"][i][14])
-                        NUM_APARTMENT_FOUR+=int(dataDUST["data"][i][15])
-                        NUM_HOTEL=float(dataDUST["data"][i][18])                    
-                for i in range(len(dataA["data"])):
-                    if dataA["data"][i][10].lower()==row[0].lower():
-                        age_str=dataA["data"][i][11]
-                        if age_str=="85+":
-                            age_str=85
-                        elif age_str=="No Response":
-                            age_str=1000
-                        if int(age_str)<=14:
-                            NUM_AGE_FOURTEEN+=int(dataA["data"][i][12])
-                            NUM_AGE_FOURTEEN+=int(dataA["data"][i][13])
-                        elif int(age_str)>14 and int(age_str)<=35:
-                            NUM_AGE_THIRTYFIVE+=int(dataA["data"][i][12])
-                            NUM_AGE_THIRTYFIVE+=int(dataA["data"][i][13])                        
-                        elif int(age_str)>35 and int(age_str)<=60:
-                            NUM_AGE_SIXTY+=int(dataA["data"][i][12])
-                            NUM_AGE_SIXTY+=int(dataA["data"][i][13])  
-                        elif int(age_str)>60 and int(age_str)<200:
-                            NUM_AGE_SIXTYPLUS+=int(dataA["data"][i][12])
-                            NUM_AGE_SIXTYPLUS+=int(dataA["data"][i][13])
-                for i in range(len(dataE["data"])):
-                    if dataE["data"][i][10].lower()==row[0].lower():
-                        NUM_EMPLOYMENT_STUDENT+=int(dataE["data"][i][11])
-                        NUM_EMPLOYMENT_STUDENT+=int(dataE["data"][i][12])
-                        NUM_EMPLOYMENT_STUDENT+=int(dataE["data"][i][13])
-                        NUM_EMPLOYMENT_STUDENT+=int(dataE["data"][i][14])
-                        NUM_EMPLOYMENT_STUDENT+=int(dataE["data"][i][15])
-                        NUM_EMPLOYMENT_UNEMPLOYED+=int(dataE["data"][i][17])
-                        NUM_EMPLOYMENT_UNEMPLOYED+=int(dataE["data"][i][18])
-                        NUM_EMPLOYMENT_EMPLOYED+=int(dataE["data"][i][19])   
+            for i in range(len(dataDUST["data"])):
+                if dataDUST["data"][i][10].lower()==row[0].lower():
+                    NUM_SINGLE+=int(dataDUST["data"][i][11])
+                    NUM_DUPLEX+=int(dataDUST["data"][i][12])
+                    NUM_ROW_HOUSE+=int(dataDUST["data"][i][13])
+                    NUM_APARTMENT_FIVE+=int(dataDUST["data"][i][14])
+                    NUM_APARTMENT_FOUR+=int(dataDUST["data"][i][15])
+                    NUM_HOTEL=float(dataDUST["data"][i][18])                    
+            for i in range(len(dataA["data"])):
+                if dataA["data"][i][10].lower()==row[0].lower():
+                    age_str=dataA["data"][i][11]
+                    if age_str=="85+":
+                        age_str=85
+                    elif age_str=="No Response":
+                        age_str=1000
+                    if int(age_str)<=14:
+                        NUM_AGE_FOURTEEN+=int(dataA["data"][i][12])
+                        NUM_AGE_FOURTEEN+=int(dataA["data"][i][13])
+                    elif int(age_str)>14 and int(age_str)<=35:
+                        NUM_AGE_THIRTYFIVE+=int(dataA["data"][i][12])
+                        NUM_AGE_THIRTYFIVE+=int(dataA["data"][i][13])                        
+                    elif int(age_str)>35 and int(age_str)<=60:
+                        NUM_AGE_SIXTY+=int(dataA["data"][i][12])
+                        NUM_AGE_SIXTY+=int(dataA["data"][i][13])  
+                    elif int(age_str)>60 and int(age_str)<200:
+                        NUM_AGE_SIXTYPLUS+=int(dataA["data"][i][12])
+                        NUM_AGE_SIXTYPLUS+=int(dataA["data"][i][13])
+            for i in range(len(dataE["data"])):
+                if dataE["data"][i][10].lower()==row[0].lower():
+                    NUM_EMPLOYMENT_STUDENT+=int(dataE["data"][i][11])
+                    NUM_EMPLOYMENT_STUDENT+=int(dataE["data"][i][12])
+                    NUM_EMPLOYMENT_STUDENT+=int(dataE["data"][i][13])
+                    NUM_EMPLOYMENT_STUDENT+=int(dataE["data"][i][14])
+                    NUM_EMPLOYMENT_STUDENT+=int(dataE["data"][i][15])
+                    NUM_EMPLOYMENT_UNEMPLOYED+=int(dataE["data"][i][16])
+                    NUM_EMPLOYMENT_UNEMPLOYED+=int(dataE["data"][i][19])
+                    NUM_EMPLOYMENT_EMPLOYED+=int(dataE["data"][i][17])
+                    NUM_EMPLOYMENT_EMPLOYED+=int(dataE["data"][i][18])   
             data_array=[]
             data_array.append(NUM_PLAYGROUNDS)
             data_array.append(NUM_PUBLIC_SCHOOLS)
@@ -163,7 +164,7 @@ def insert_to_major():
             data_array.append(NUM_EMPLOYMENT_STUDENT)
             data_array.append(NUM_EMPLOYMENT_UNEMPLOYED)
             data_array.append(NUM_EMPLOYMENT_EMPLOYED)
-            print(data_array)
+            #print(data_array)
             insert_major=("INSERT INTO major_dataset "
                    "(NEIGHBOURHOOD_NAME,NUM_PLAYGROUNDS,NUM_PUBLIC_SCHOOLS,NUM_CATHOLIC_SCHOOLS,NUM_SINGLE,NUM_DUPLEX,NUM_ROW_HOUSE,NUM_APARTMENT_FIVE,NUM_APARTMENT_FOUR,NUM_HOTEL,NUM_AGE_FOURTEEN,NUM_AGE_THIRTYFIVE,NUM_AGE_SIXTY,NUM_AGE_SIXTYPLUS,NUM_EMPLOYMENT_STUDENT,NUM_EMPLOYMENT_UNEMPLOYED,NUM_EMPLOYMENT_EMPLOYED) "
                    "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
@@ -173,6 +174,51 @@ def insert_to_major():
             cnx.commit()
             cursorm.close()
     
+def insert_to_relative():
+    insert_relative=("INSERT INTO relative_dataset "
+           "(DATASET_NAME,DATASET_URL,DATASET_LASTUPADE,DATASET_MAX_VALUE) "
+           "VALUES (%s,%s,%s,%s)") 
+    select_max_major=("SELECT MAX(NUM_PLAYGROUNDS),MAX(NUM_PUBLIC_SCHOOLS),MAX(NUM_CATHOLIC_SCHOOLS),MAX(NUM_SINGLE),MAX(NUM_DUPLEX),MAX(NUM_ROW_HOUSE),MAX(NUM_APARTMENT_FIVE),MAX(NUM_APARTMENT_FOUR),MAX(NUM_HOTEL),MAX(NUM_AGE_FOURTEEN),MAX(NUM_AGE_THIRTYFIVE),MAX(NUM_AGE_SIXTY),MAX(NUM_AGE_SIXTYPLUS),MAX(NUM_EMPLOYMENT_STUDENT),MAX(NUM_EMPLOYMENT_UNEMPLOYED),MAX(NUM_EMPLOYMENT_EMPLOYED) FROM major_dataset")
+    cursorr=cnx.cursor()
+    cursormm=cnx.cursor()
+    cursormm.execute(select_max_major)
+    mmdata = cursormm.fetchall()
+    for row in mmdata:
+        PLAYGROUNDS=("PLAYGROUNDS",urlP,dataP["meta"]["view"]["viewLastModified"],row[0])
+        PUBLIC_SCHOOLS=("PUBLIC_SCHOOLS",urlEPS,dataEPS["meta"]["view"]["viewLastModified"],row[1])
+        CATHOLIC_SCHOOLS=("CATHOLIC_SCHOOLS",urlECS,dataECS["meta"]["view"]["viewLastModified"],row[2])
+        SINGLE=("SINGLE",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[3])
+        DUPLEX=("DUPLEX",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[4])        
+        ROW_HOUSE=("ROW_HOUSE",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[5])
+        APARTMENT_FIVE=("APARTMENT_FIVE",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[6]) 
+        APARTMENT_FOUR=("APARTMENT_FOUR",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[7]) 
+        HOTEL=("HOTEL",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[8]) 
+        AGE_FOURTEEN=("AGE_FOURTEEN",urlA,dataA["meta"]["view"]["viewLastModified"],row[9]) 
+        AGE_THIRTYFIVE=("AGE_THIRTYFIVE",urlA,dataA["meta"]["view"]["viewLastModified"],row[10]) 
+        AGE_SIXTY=("AGE_SIXTY",urlA,dataA["meta"]["view"]["viewLastModified"],row[11]) 
+        AGE_SIXTYPLUS=("AGE_SIXTYPLUS",urlA,dataA["meta"]["view"]["viewLastModified"],row[12]) 
+        EMPLOYMENT_STUDENT=("EMPLOYMENT_STUDENT",urlE,dataE["meta"]["view"]["viewLastModified"],row[13]) 
+        EMPLOYMENT_UNEMPLOYED=("EMPLOYMENT_UNEMPLOYED",urlE,dataE["meta"]["view"]["viewLastModified"],row[14]) 
+        EMPLOYMENT_EMPLOYED=("EMPLOYMENT_EMPLOYED",urlE,dataE["meta"]["view"]["viewLastModified"],row[15])
+        cursorr.execute(insert_relative,PLAYGROUNDS)
+        cursorr.execute(insert_relative,PUBLIC_SCHOOLS)
+        cursorr.execute(insert_relative,CATHOLIC_SCHOOLS)
+        cursorr.execute(insert_relative,SINGLE)
+        cursorr.execute(insert_relative,DUPLEX)
+        cursorr.execute(insert_relative,ROW_HOUSE)
+        cursorr.execute(insert_relative,APARTMENT_FIVE)
+        cursorr.execute(insert_relative,APARTMENT_FOUR)
+        cursorr.execute(insert_relative,HOTEL)
+        cursorr.execute(insert_relative,AGE_FOURTEEN)
+        cursorr.execute(insert_relative,AGE_THIRTYFIVE)
+        cursorr.execute(insert_relative,AGE_SIXTY)
+        cursorr.execute(insert_relative,AGE_SIXTYPLUS)
+        cursorr.execute(insert_relative,EMPLOYMENT_STUDENT)
+        cursorr.execute(insert_relative,EMPLOYMENT_UNEMPLOYED)
+        cursorr.execute(insert_relative,EMPLOYMENT_EMPLOYED)        
+        cnx.commit() 
+        cursorr.close()
+    cursormm.close()
 
 #Neighbourhood name
 urlNN = "https://data.edmonton.ca/api/views/65fr-66s6/rows.json?accessType=DOWNLOAD"
@@ -219,4 +265,5 @@ cnx = mysql.connector.connect(user='root', password='',host='localhost',database
 #insert
 insert_to_neibourhood()
 insert_to_major()
+insert_to_relative()
 cnx.close()
