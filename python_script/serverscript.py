@@ -62,7 +62,7 @@ def json_output():
                 neibourhood[row[1]]=sequence
                 out_array.append(neibourhood)
                 cursorn.close()
-        if len(out_array)>0:
+        if len(out_array)>0 and latitude!=0 and longitude!=0:
             json.dump(out_array, outfile)               
 
 def ioio():
