@@ -9,14 +9,13 @@ cnx = mysql.connector.connect(user='root', password='',
 cursor = cnx.cursor()
 def get_polygon(poly):
     coords=[]
+    poly=poly.replace("(","")
+    poly=poly.replace(")","")
+    poly=poly.replace("MULTIPOLYGON ","")
     polysplit=poly.split(',')
     plen=len(polysplit)
     for i in range(plen):
         coord=polysplit[i];
-        if i==0:
-            coord=coord[16:]
-        elif i==plen-1:
-            coord=coord[:len(coord)-3]
         coords.append(coord)        
     return coords
 
@@ -57,7 +56,8 @@ def json_output():
                 sequence["attributes"]=[row[2],row[3],row[4],row[5],row[6],row[7],row[9],row[9],row[10],row[11],row[12],row[13],row[14],row[15],row[16],row[17]]
                 sequence["area"]=area
                 sequence["latitude"]=latitude
-                sequence["longitude"]=longitude                
+                sequence["longitude"]=longitude   
+                sequence["score"]=0 
                 neibourhood={}        
                 neibourhood[row[1]]=sequence
                 out_array.append(neibourhood)
