@@ -71,7 +71,7 @@ def ioio():
     
     print data    
 
-#json_output()
+json_output()
 ioio()
 cursor.close()
 cnx.close()    
