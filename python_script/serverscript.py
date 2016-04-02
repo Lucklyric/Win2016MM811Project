@@ -37,11 +37,11 @@ def json_output():
         cursor.execute("SELECT * FROM major_dataset")
         data = cursor.fetchall()
         for row in data:
-            print(row[1])
+            #print(row[1])
             cursorn=cnx.cursor()
             cursorn.execute("SELECT * FROM neighbourhood_tmp WHERE NEIGHBOURHOOD_NAME='%s'"%row[1])
             ndata = cursorn.fetchall()
-            pprint(cursorn.rowcount)
+            #pprint(cursorn.rowcount)
             if cursorn.rowcount>0:
                 area=[]
                 centroid=[]   
@@ -72,6 +72,6 @@ def ioio():
     print data    
 
 json_output()
-ioio()
+#ioio()
 cursor.close()
 cnx.close()    
