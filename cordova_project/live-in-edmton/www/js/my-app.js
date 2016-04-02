@@ -1,6 +1,6 @@
 // Initialize app and store it to myApp variable for futher access to its methods
 var myApp = new Framework7({material:true});
-var myQuery,myVsList;
+var myQuery,myVsList,myMapManager;
 // We need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
@@ -33,7 +33,9 @@ $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
 
 $(document).ready(function(){
     $.ajaxSetup({ cache: false });
-    myVsList = new VsListManager(myApp,$("#vsList"),$("#newQueryDiv"));
+    myMapManager = new MapManager();
+    myMapManager.initialize();
+    myVsList = new VsListManager(myApp,$("#vsList"),$("#newQueryDiv"),myMapManager);
     myQuery = new QueryManager($("#preload"),myVsList,$$("#view1Tab"));
 
     $$("#jumpButton").click(function(){

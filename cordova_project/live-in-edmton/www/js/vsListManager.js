@@ -1,11 +1,12 @@
 /**
  * Created by Alvin on 2016-04-01.
  */
-function VsListManager(apInstance,_vslistDiv,newqueryDiv) {
+function VsListManager(apInstance,_vslistDiv,newqueryDiv,_mapInstance) {
     var vsListMangerInstance = this;
     this.currentData = [];
     this.vslistDiv = _vslistDiv;
     this.currentItem = null;
+    this.mapInstance = _mapInstance;
     this.myList = apInstance.virtualList(this.vslistDiv,{
         items:[
 
@@ -47,7 +48,6 @@ function VsListManager(apInstance,_vslistDiv,newqueryDiv) {
                 randIndex = "l";
             }
             for (nName in vsListMangerInstance.currentData[i]){
-
                 vsListMangerInstance.myList.appendItem(
                     {
                         filename:randIndex,
@@ -58,14 +58,21 @@ function VsListManager(apInstance,_vslistDiv,newqueryDiv) {
                 );
             }
         }
+
         $("li.vsItem").off('click');
         $( "li.vsItem" ).click(function() {
-            console.log("click");
+            console.log($("li").index($(this)));
             if (vsListMangerInstance.currentItem) {
                 vsListMangerInstance.currentItem.children().css("background-color", "black");
             }
             $(this).children().css("background-color", "gray");
             vsListMangerInstance.currentItem =$(this);
+            vsListMangerInstance.updateMap($("li").index($(this)));
         });
+
+    };
+
+    this.updateMap = function(index){
+        vsListMangerInstance.mapInstance.moveToNei(vsListMangerInstance.currentData[index]);
     }
 }
