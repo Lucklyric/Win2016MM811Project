@@ -33,6 +33,7 @@ function initialize() {
         // Browser doesn't support Geolocation
         //handleLocationError(false, infoWindow, map.getCenter());
     }
-
+    $("#google-loading").css('background-color','transparent');
+    $("#googleMap").show();
 }
 google.maps.event.addDomListener(window, 'load', initialize);
