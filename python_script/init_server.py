@@ -164,8 +164,14 @@ def insert_to_major():
             data_array.append(NUM_EMPLOYMENT_UNEMPLOYED)
             data_array.append(NUM_EMPLOYMENT_EMPLOYED)
             print(data_array)
-    cursor.close()
-    
+            insert_major=("INSERT INTO major_dataset "
+                   "(NEIGHBOURHOOD_NAME,NUM_PLAYGROUNDS,NUM_PUBLIC_SCHOOLS,NUM_CATHOLIC_SCHOOLS,NUM_SINGLE,NUM_DUPLEX,NUM_ROW_HOUSE,NUM_APARTMENT_FIVE,NUM_APARTMENT_FOUR,NUM_HOTEL,NUM_AGE_FOURTEEN,NUM_AGE_THIRTYFIVE,NUM_AGE_SIXTY,NUM_AGE_SIXTYPLUS,NUM_EMPLOYMENT_STUDENT,NUM_EMPLOYMENT_UNEMPLOYED,NUM_EMPLOYMENT_EMPLOYED) "
+                   "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
+            majordata=(row[0],data_array[0],data_array[1],data_array[2],data_array[3],data_array[4],data_array[5],data_array[6],data_array[7],data_array[8],data_array[9],data_array[10],data_array[11],data_array[12],data_array[13],data_array[14],data_array[15])
+            cursorm = cnx.cursor()   
+            cursorm.execute(insert_major, majordata) 
+            cnx.commit()
+            cursorm.close()
     
 
 #Neighbourhood name
@@ -211,6 +217,6 @@ dataA = json.loads(jfile)
 #connect to database
 cnx = mysql.connector.connect(user='root', password='',host='localhost',database='mm811project')
 #insert
-#insert_to_neibourhood()
+insert_to_neibourhood()
 insert_to_major()
 cnx.close()
