@@ -68,9 +68,9 @@ def json_output(user_query):
                 neibourhood["area"]=area
                 neibourhood["latitude"]=latitude
                 neibourhood["longitude"]=longitude   
-                neibourhood["score"]=calculate_score(neibourhood["attributes"],user_query,maxs)                
+                neibourhood["score"]=((4.0-calculate_score(neibourhood["attributes"],user_query,maxs))/4)*100                
                 if neibourhood["score"]>0:
-                    print neibourhood["score"]
+                    #print neibourhood["score"]
                     out_array.append(neibourhood)
             cursorn.close()
     cursor.close()       
@@ -86,9 +86,8 @@ def ioio():
 def euclidean_distance(x,y):
     dist=0;
     for i in range(len(x)):
-        dist += float((float(x[i])-float(y[i]))**2);
-    dist = float(math.sqrt(float(dist)))
-    return dist
+        dist += (float(x[i])-float(y[i]))**2;
+    return math.sqrt(dist)
     
 def calculate_score(attributes,user_query,maxs):
     x=[] #data attributes
@@ -100,7 +99,7 @@ def calculate_score(attributes,user_query,maxs):
             normalize= float(attributes[i])/float(maxs[i])
             x.append(normalize)
             y.append(user_query[i])
-    return float(euclidean_distance(x,y))
+    return euclidean_distance(x,y)
     
 cnx = mysql.connector.connect(user='root', password='',
                               host='localhost',
