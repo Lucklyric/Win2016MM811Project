@@ -74,8 +74,7 @@ def calculate_score(attributes):
     score=0
     for i in range(len(attributes)):
         if attributes[i]==-1:
-            continue
-        
+            nothing=1        
     
     
 cnx = mysql.connector.connect(user='root', password='',
