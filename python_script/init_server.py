@@ -174,32 +174,32 @@ def insert_to_major():
             cnx.commit()
             cursorm.close()
     
-def insert_to_relative():
-    insert_relative=("INSERT INTO relative_dataset "
-           "(DATASET_NAME,DATASET_URL,DATASET_LASTUPADE,DATASET_MAX_VALUE) "
-           "VALUES (%s,%s,%s,%s)") 
+def insert_to_relative_data():
+    insert_relative=("INSERT INTO relative_data "
+           "(DATA_NAME,DATA_MAX_VALUE) "
+           "VALUES (%s,%s)") 
     select_max_major=("SELECT MAX(NUM_PLAYGROUNDS),MAX(NUM_PUBLIC_SCHOOLS),MAX(NUM_CATHOLIC_SCHOOLS),MAX(NUM_SINGLE),MAX(NUM_DUPLEX),MAX(NUM_ROW_HOUSE),MAX(NUM_APARTMENT_FIVE),MAX(NUM_APARTMENT_FOUR),MAX(NUM_HOTEL),MAX(NUM_AGE_FOURTEEN),MAX(NUM_AGE_THIRTYFIVE),MAX(NUM_AGE_SIXTY),MAX(NUM_AGE_SIXTYPLUS),MAX(NUM_EMPLOYMENT_STUDENT),MAX(NUM_EMPLOYMENT_UNEMPLOYED),MAX(NUM_EMPLOYMENT_EMPLOYED) FROM major_dataset")
     cursorr=cnx.cursor()
     cursormm=cnx.cursor()
     cursormm.execute(select_max_major)
     mmdata = cursormm.fetchall()
     for row in mmdata:
-        PLAYGROUNDS=("PLAYGROUNDS",urlP,dataP["meta"]["view"]["viewLastModified"],row[0])
-        PUBLIC_SCHOOLS=("PUBLIC_SCHOOLS",urlEPS,dataEPS["meta"]["view"]["viewLastModified"],row[1])
-        CATHOLIC_SCHOOLS=("CATHOLIC_SCHOOLS",urlECS,dataECS["meta"]["view"]["viewLastModified"],row[2])
-        SINGLE=("SINGLE",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[3])
-        DUPLEX=("DUPLEX",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[4])        
-        ROW_HOUSE=("ROW_HOUSE",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[5])
-        APARTMENT_FIVE=("APARTMENT_FIVE",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[6]) 
-        APARTMENT_FOUR=("APARTMENT_FOUR",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[7]) 
-        HOTEL=("HOTEL",urlDUST,dataDUST["meta"]["view"]["viewLastModified"],row[8]) 
-        AGE_FOURTEEN=("AGE_FOURTEEN",urlA,dataA["meta"]["view"]["viewLastModified"],row[9]) 
-        AGE_THIRTYFIVE=("AGE_THIRTYFIVE",urlA,dataA["meta"]["view"]["viewLastModified"],row[10]) 
-        AGE_SIXTY=("AGE_SIXTY",urlA,dataA["meta"]["view"]["viewLastModified"],row[11]) 
-        AGE_SIXTYPLUS=("AGE_SIXTYPLUS",urlA,dataA["meta"]["view"]["viewLastModified"],row[12]) 
-        EMPLOYMENT_STUDENT=("EMPLOYMENT_STUDENT",urlE,dataE["meta"]["view"]["viewLastModified"],row[13]) 
-        EMPLOYMENT_UNEMPLOYED=("EMPLOYMENT_UNEMPLOYED",urlE,dataE["meta"]["view"]["viewLastModified"],row[14]) 
-        EMPLOYMENT_EMPLOYED=("EMPLOYMENT_EMPLOYED",urlE,dataE["meta"]["view"]["viewLastModified"],row[15])
+        PLAYGROUNDS=("PLAYGROUNDS",row[0])
+        PUBLIC_SCHOOLS=("PUBLIC_SCHOOLS",row[1])
+        CATHOLIC_SCHOOLS=("CATHOLIC_SCHOOLS",row[2])
+        SINGLE=("SINGLE",row[3])
+        DUPLEX=("DUPLEX",row[4])        
+        ROW_HOUSE=("ROW_HOUSE",row[5])
+        APARTMENT_FIVE=("APARTMENT_FIVE",row[6]) 
+        APARTMENT_FOUR=("APARTMENT_FOUR",row[7]) 
+        HOTEL=("HOTEL",row[8]) 
+        AGE_FOURTEEN=("AGE_FOURTEEN",row[9]) 
+        AGE_THIRTYFIVE=("AGE_THIRTYFIVE",row[10]) 
+        AGE_SIXTY=("AGE_SIXTY",row[11]) 
+        AGE_SIXTYPLUS=("AGE_SIXTYPLUS",row[12]) 
+        EMPLOYMENT_STUDENT=("EMPLOYMENT_STUDENT",row[13]) 
+        EMPLOYMENT_UNEMPLOYED=("EMPLOYMENT_UNEMPLOYED",row[14]) 
+        EMPLOYMENT_EMPLOYED=("EMPLOYMENT_EMPLOYED",row[15])
         cursorr.execute(insert_relative,PLAYGROUNDS)
         cursorr.execute(insert_relative,PUBLIC_SCHOOLS)
         cursorr.execute(insert_relative,CATHOLIC_SCHOOLS)
@@ -219,7 +219,26 @@ def insert_to_relative():
         cnx.commit() 
         cursorr.close()
     cursormm.close()
-
+    
+def insert_to_relative_dataset():
+    insert_relative_dataset=("INSERT INTO relative_dataset "
+               "(DATASET_NAME,DATASET_URL,DATASET_LASTUPADE) "
+               "VALUES (%s,%s,%s)")     
+    PLAYGROUNDS=(dataP["meta"]["view"]["name"],urlP,dataP["meta"]["view"]["viewLastModified"])
+    PUBLIC_SCHOOLS=(dataEPS["meta"]["view"]["name"],urlEPS,dataEPS["meta"]["view"]["viewLastModified"])
+    CATHOLIC_SCHOOLS=(dataECS["meta"]["view"]["name"],urlECS,dataECS["meta"]["view"]["viewLastModified"])
+    STRUCTURE_TYPE=(dataDUST["meta"]["view"]["name"],urlDUST,dataDUST["meta"]["view"]["viewLastModified"])
+    AGE=(dataA["meta"]["view"]["name"],urlA,dataA["meta"]["view"]["viewLastModified"]) 
+    EMPLOYMENT=(dataE["meta"]["view"]["name"],urlE,dataE["meta"]["view"]["viewLastModified"]) 
+    cursord=cnx.cursor()
+    cursord.execute(insert_relative_dataset,PLAYGROUNDS)
+    cursord.execute(insert_relative_dataset,PUBLIC_SCHOOLS)
+    cursord.execute(insert_relative_dataset,CATHOLIC_SCHOOLS)
+    cursord.execute(insert_relative_dataset,STRUCTURE_TYPE)
+    cursord.execute(insert_relative_dataset,AGE)  
+    cursord.execute(insert_relative_dataset,EMPLOYMENT)   
+    cnx.commit()
+    cursord.close()
 #Neighbourhood name
 urlNN = "https://data.edmonton.ca/api/views/65fr-66s6/rows.json?accessType=DOWNLOAD"
 #Neighbourhood Boundaries
@@ -265,5 +284,6 @@ cnx = mysql.connector.connect(user='root', password='',host='localhost',database
 #insert
 insert_to_neibourhood()
 insert_to_major()
-insert_to_relative()
+insert_to_relative_data()
+insert_to_relative_dataset()
 cnx.close()

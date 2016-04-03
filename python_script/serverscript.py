@@ -32,7 +32,7 @@ def convert_to_list(polygon):
 def json_output(user_query):
     cursorm = cnx.cursor()
     maxs=[]
-    select_max=("SELECT DATASET_MAX_VALUE FROM relative_dataset")
+    select_max=("SELECT DATA_MAX_VALUE FROM relative_data")
     cursorm.execute(select_max)
     mdata = cursorm.fetchall()
     for rr in mdata:
