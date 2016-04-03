@@ -41,6 +41,8 @@ def check_inside(latitude,longitude,min_max):
         return True
 
 def insert_to_neibourhood():
+    cnx = mysql.connector.connect(user='root', password='',host='localhost',database='mm811project')
+    
     cursor = cnx.cursor()    
     poly = get_min_max(dataNB["data"][0][9])
     add_neighbourhood = ("INSERT INTO neighbourhood_tmp "
@@ -63,8 +65,10 @@ def insert_to_neibourhood():
         cursor.execute(add_neighbourhood, neighbourdata) 
         cnx.commit()
     cursor.close()
-    
+    cnx.close()
 def insert_to_major():
+    cnx = mysql.connector.connect(user='root', password='',host='localhost',database='mm811project')
+    
     cursor = cnx.cursor()
     cursor.execute("select * from neighbourhood_tmp")
     neibourhood_data=cursor.fetchall()
@@ -173,8 +177,11 @@ def insert_to_major():
             cursorm.execute(insert_major, majordata) 
             cnx.commit()
             cursorm.close()
-    
+    cursor.close()
+    cnx.close()
 def insert_to_relative_data():
+    cnx = mysql.connector.connect(user='root', password='',host='localhost',database='mm811project')
+    
     insert_relative=("INSERT INTO relative_data "
            "(DATA_NAME,DATA_MAX_VALUE) "
            "VALUES (%s,%s)") 
@@ -219,8 +226,10 @@ def insert_to_relative_data():
         cnx.commit() 
         cursorr.close()
     cursormm.close()
-    
+    cnx.close()
 def insert_to_relative_dataset():
+    cnx = mysql.connector.connect(user='root', password='',host='localhost',database='mm811project')
+    
     insert_relative_dataset=("INSERT INTO relative_dataset "
                "(DATASET_NAME,DATASET_URL,DATASET_LASTUPADE) "
                "VALUES (%s,%s,%s)")     
@@ -239,6 +248,7 @@ def insert_to_relative_dataset():
     cursord.execute(insert_relative_dataset,EMPLOYMENT)   
     cnx.commit()
     cursord.close()
+    cnx.close()
 #Neighbourhood name
 urlNN = "https://data.edmonton.ca/api/views/65fr-66s6/rows.json?accessType=DOWNLOAD"
 #Neighbourhood Boundaries
@@ -280,10 +290,8 @@ dataA = json.loads(jfile)
 
 #main script
 #connect to database
-cnx = mysql.connector.connect(user='root', password='',host='localhost',database='mm811project')
-#insert
-insert_to_neibourhood()
-insert_to_major()
-insert_to_relative_data()
-insert_to_relative_dataset()
-cnx.close()
+##insert
+#insert_to_neibourhood()
+#insert_to_major()
+#insert_to_relative_data()
+#insert_to_relative_dataset()

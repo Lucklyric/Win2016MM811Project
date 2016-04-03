@@ -2,16 +2,26 @@ import urllib2
 import json
 from pprint import pprint
 import mysql.connector
+from init_server import *
 
-cnx = mysql.connector.connect(user='root', password='',
-                              host='localhost',
-                              database='mm811project')
-cursor = cnx.cursor()
-
-urlmeta="https://data.edmonton.ca/api/views/65fr-66s6"
-jfile = urllib2.urlopen(urlmeta).read()
-data = json.loads(jfile)
-pprint(data["viewLastModified"])
+#Neighbourhood name
+urlNNmeta="https://data.edmonton.ca/api/views/65fr-66s6"
+#Neighbourhood Boundaries
+urlNBmeta = "https://data.edmonton.ca/api/views/nckr-nnqj"
+#Neighbourhoods (Centroid Point)
+urlNCmeta="https://data.edmonton.ca/api/views/3b6m-fezs"
+#Playgrounds
+urlPmeta="https://data.edmonton.ca/api/views/c4nr-3quz"
+#Edmonton Public Schools (2015 - 2016)
+urlEPSmeta="https://data.edmonton.ca/api/views/ehbr-emhe"
+#Edmonton Catholic Schools (2015 - 2016)
+urlECSmeta="https://data.edmonton.ca/api/views/f6w2-hzex"
+#Dwelling Unit By Structure Type (Neighbourhood) 
+urlDUSTmeta="https://data.edmonton.ca/api/views/bjgi-976r"
+#employment status
+urlEmeta="https://data.edmonton.ca/api/views/aaar-q4e3"
+#age
+urlAmeta="https://data.edmonton.ca/api/views/44iw-gmaw"
 
 #Neighbourhood name
 urlNN = "https://data.edmonton.ca/api/views/65fr-66s6/rows.json?accessType=DOWNLOAD"
@@ -21,79 +31,102 @@ urlNB = "https://data.edmonton.ca/api/views/nckr-nnqj/rows.json?accessType=DOWNL
 urlNC="https://data.edmonton.ca/api/views/3b6m-fezs/rows.json?accessType=DOWNLOAD"
 #Playgrounds
 urlP="https://data.edmonton.ca/api/views/c4nr-3quz/rows.json?accessType=DOWNLOAD"
-#Tennis Courts
-urlTC="https://data.edmonton.ca/api/views/25b5-e682/rows.json?accessType=DOWNLOAD"
 #Edmonton Public Schools (2015 - 2016)
 urlEPS="https://data.edmonton.ca/api/views/ehbr-emhe/rows.json?accessType=DOWNLOAD"
 #Edmonton Catholic Schools (2015 - 2016)
 urlECS="https://data.edmonton.ca/api/views/f6w2-hzex/rows.json?accessType=DOWNLOAD"
 #Dwelling Unit By Structure Type (Neighbourhood) 
 urlDUST="https://data.edmonton.ca/api/views/bjgi-976r/rows.json?accessType=DOWNLOAD"
-#Trees 
-urlT="https://data.edmonton.ca/api/views/eecg-fc54/rows.json?accessType=DOWNLOAD"
+#employment status
+urlE="https://data.edmonton.ca/api/views/aaar-q4e3/rows.json?accessType=DOWNLOAD"
+#age
+urlA="https://data.edmonton.ca/api/views/44iw-gmaw/rows.json?accessType=DOWNLOAD"
 
-#read all urls
-jfile = urllib2.urlopen(urlNN).read()
-dataNN = json.loads(jfile)
-jfile = urllib2.urlopen(urlNB).read()
-dataNB = json.loads(jfile)
-jfile = urllib2.urlopen(urlNC).read()
-dataNC = json.loads(jfile)
 
-#add_neighbourhood = ("INSERT INTO neighbourhood_tmp "
-               #"(NEIGHBOURHOOD_NAME,NEIGHBOURHOOD_AREA,NEIGHBOURHOOD_LATI,NEIGHBOURHOOD_LONG) "
-               #"VALUES (%s,%s,%s,%s)")
-#for i in range(len(dataNC["meta"]["view"]["columns"])):
-    #pprint(dataNC["meta"]["view"]["columns"][i]["name"])
-#area=""
-#latitude=0
-#longitude=0
-#for i in range(len(dataNN["data"])):
-    #for j in range(len(dataNB["data"])):
-        #if dataNB["data"][i][8] == dataNN["data"][i][8]:
-            #area = dataNB["data"][i][9]
-            #break
-        
-    #for j in range(len(dataNC["data"])):
-        #if dataNC["data"][i][9] == dataNN["data"][i][8]:
-            #latitude = dataNC["data"][i][10]
-            #longitude = dataNC["data"][i][11]
-            ##pprint(latitude);
-            #break    
-    #neighbourdata=(dataNN["data"][i][8],area,latitude,longitude)
-    #cursor.execute(add_neighbourhood, neighbourdata) 
-    #cnx.commit()
+cnx = mysql.connector.connect(user='root', password='',
+                              host='localhost',
+                              database='mm811project')
+cursor = cnx.cursor()
+cursor.execute("SELECT * FROM relative_dataset")
+dataset_info=cursor.fetchall()
+cursordel=cnx.cursor()
+del_relative_data=("TRUNCATE relative_data")
+del_relative_dataset=("TRUNCATE relative_dataset")
+del_major_dataset=("TRUNCATE major_dataset")
+del_major_neighbourhood_tmp=("TRUNCATE neighbourhood_tmp")
+delall=0
+delpart=0
+for row in dataset_info:
+    jfile = urllib2.urlopen(urlNNmeta).read()
+    dataNNmeta = json.loads(jfile)
+    jfile = urllib2.urlopen(urlNBmeta).read()
+    dataNBmeta = json.loads(jfile)
+    jfile = urllib2.urlopen(urlNCmeta).read()
+    dataNCmeta = json.loads(jfile)
+    jfile = urllib2.urlopen(urlPmeta).read()
+    dataPmeta = json.loads(jfile)
+    jfile = urllib2.urlopen(urlEPSmeta).read()
+    dataEPSmeta = json.loads(jfile)
+    jfile = urllib2.urlopen(urlECSmeta).read()
+    dataECSmeta = json.loads(jfile)
+    jfile = urllib2.urlopen(urlDUSTmeta).read()
+    dataDUSTmeta = json.loads(jfile)
+    jfile = urllib2.urlopen(urlEmeta).read()
+    dataEmeta = json.loads(jfile)
+    jfile = urllib2.urlopen(urlAmeta).read()
+    dataAmeta = json.loads(jfile)    
+ 
+    if dataNNmeta["name"].lower()==row[1]:
+        if dataNNmeta["viewLastModified"]-row[3]>0:
+            delall=1
+    elif dataNBmeta["name"].lower()==row[1]:
+        if dataNBmeta["viewLastModified"]-row[3]>0:    
+            delall=1
+    elif dataNCmeta["name"].lower()==row[1]:
+        if dataNCmeta["viewLastModified"]-row[3]>0:    
+            delall=1
+    elif dataPmeta["name"].lower()==row[1]:
+        if dataPmeta["viewLastModified"]-row[3]>0:     
+            delpart=1
+    elif dataEPSmeta["name"].lower()==row[1]:
+        if dataEPSmeta["viewLastModified"]-row[3]>0: 
+            delpart=1
+    elif dataECSmeta["name"].lower()==row[1]:
+        if dataECSmeta["viewLastModified"]-row[3]>0:     
+            delpart=1          
+    elif dataDUSTmeta["name"].lower()==row[1]:
+        if dataDUSTmeta["viewLastModified"]-row[3]>0: 
+            delpart=1
+    elif dataEmeta["name"].lower()==row[1]:
+        if dataEmeta["viewLastModified"]-row[3]>0:    
+            delpart=1
+    elif dataAmeta["name"].lower()==row[1]:
+        if dataAmeta["viewLastModified"]-row[3]>0:
+            delpart=1
+
+if delall==1:
+    cursordel.execute(del_relative_data)
+    cursordel.execute(del_relative_dataset) 
+    cursordel.execute(del_major_dataset) 
+    cursordel.execute(del_major_neighbourhood_tmp)
+    insert_to_neibourhood()
+    insert_to_major()
+    insert_to_relative_data()
+    insert_to_relative_dataset()
+elif delall==0 and delpart==1:
+    cursordel.execute(del_relative_data)
+    cursordel.execute(del_relative_dataset) 
+    cursordel.execute(del_major_dataset) 
+    insert_to_major()
+    insert_to_relative_data()
+    insert_to_relative_dataset()     
+
+init=0
+if init==1:
+    insert_to_neibourhood()
+    insert_to_major()
+    insert_to_relative_data()
+    insert_to_relative_dataset()
     
-#update_area = ("UPDATE neighbourhood_tmp"
-            #"SET NEIGHBOURHOOD_AREA=%s WHERE NEIGHBOURHOOD_NAME=%s")
-    
-
-
-#pprint(data["meta"]["view"]["name"])
-
-#jfile = urllib2.urlopen(urlP).read()
-#data = json.loads(jfile)
-#pprint(data["meta"]["view"]["name"])
-
-#jfile = urllib2.urlopen(urlTC).read()
-#data = json.loads(jfile)
-#pprint(data["meta"]["view"]["name"])
-
-#jfile = urllib2.urlopen(urlEPS).read()
-#data = json.loads(jfile)
-#pprint(data["meta"]["view"]["name"])
-
-#jfile = urllib2.urlopen(urlECS).read()
-#data = json.loads(jfile)
-#pprint(data["meta"]["view"]["name"])
-
-#jfile = urllib2.urlopen(urlDUST).read()
-#data = json.loads(jfile)
-#pprint(data["meta"]["view"]["name"])
-
-#jfile = urllib2.urlopen(urlT).read()
-#data = json.loads(jfile)
-#pprint(data["meta"]["view"]["name"])
-
 cursor.close()
 cnx.close()
