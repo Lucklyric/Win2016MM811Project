@@ -16,12 +16,13 @@ function QueryManager(preloadIndiDiv,listManager,view1Tab){
                 string:testdata
             },
             success: function (response) {
-                //var par = JSON.parse(response);
-               // console.log(par);
+                //console.log(response);
+                var par = JSON.parse(response);
+                //console.log(par);
                 view1Tab.trigger("click");
                 view1Tab.trigger("click");
 
-                listManager.updateList(response);
+                listManager.updateList(par);
                 queryManagerInstance.preloadIndi.hide();
             },
             error: function (xhr) {

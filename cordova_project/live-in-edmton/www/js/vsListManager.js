@@ -48,7 +48,7 @@ function VsListManager(apInstance,_vslistDiv,newqueryDiv,_mapInstance) {
 
     this.updateList = function(data){
         console.log(data);
-        vsListMangerInstance.currentData = data[0];
+        vsListMangerInstance.currentData = data;
         newqueryDiv.hide();
         vsListMangerInstance.myList.deleteAllItems();
         for (var i = 0 ; i < vsListMangerInstance.currentData.length;i++){

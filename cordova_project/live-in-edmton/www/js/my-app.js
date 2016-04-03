@@ -103,7 +103,6 @@ $(document).ready(function(){
         var radios = document.getElementsByName('emp');
 
         for (var i = 0, length = radios.length; i < length; i++) {
-
             if (i == 0){
                 if (radios[i].checked) {
                     queryArray.push(0);
@@ -118,7 +117,6 @@ $(document).ready(function(){
                     queryArray.push(0)
                 }
             }
-
         }
 
         var queryString = "";

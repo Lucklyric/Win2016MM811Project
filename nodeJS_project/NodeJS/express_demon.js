@@ -66,7 +66,7 @@ app.post('/fakequery',function (req, res) {
 	options["args"] = [req.body["string"]];
 
 	console.log("run python shell"+ options);
-    pythonShell.run('../../python_script/fake.py', options, function (err, results) {
+    pythonShell.run('../../python_script/serverscript.py', options, function (err, results) {
   	if (err) throw err;
   	// results is an array consisting of messages collected during execution
   		res.send(results);
