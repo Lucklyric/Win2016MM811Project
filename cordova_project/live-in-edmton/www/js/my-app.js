@@ -122,7 +122,7 @@ $(document).ready(function(){
         }
 
         var queryString = "";
-        for (var i = 1;i<queryArray.length;i++){
+        for (var i = 0;i<queryArray.length;i++){
             if (i != (queryArray.length-1)){
                 queryString+= queryArray[i].toString()+","
             }else{
