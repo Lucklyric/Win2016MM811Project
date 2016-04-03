@@ -107,5 +107,5 @@ cnx = mysql.connector.connect(user='root', password='',
 user_query=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 json_output(user_query)
 #ioio()
-
+print "here"
 cnx.close()           
