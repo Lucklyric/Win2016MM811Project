@@ -80,7 +80,7 @@ def json_output(user_query):
     cursor.close()       
     rank = sorted(out_array, key=itemgetter('score'), reverse=True)   
     #with open('output.json', 'wb') as outfile:
-    #print json.dumps(rank)   
+    print json.dumps(rank)   
 
 def ioio():
     with open('output.json') as data_file:    
@@ -113,7 +113,7 @@ def insert_user_query(user_query):
     cnx.commit()
     cursoru.close()
 
-def main():
+def main(argv):
     user_query=[]
     for i in argv.split(","):
         user_query.append(i)
@@ -124,5 +124,5 @@ def main():
     cnx.close()       
     
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1])
     
