@@ -48,7 +48,11 @@ cnx = mysql.connector.connect(user='root', password='',
                               database='mm811project')
 cursor = cnx.cursor()
 cursor.execute("SELECT * FROM relative_dataset")
+init=0
 dataset_info=cursor.fetchall()
+if cursor.rowcount==0:
+    init=1
+
 cursordel=cnx.cursor()
 del_relative_data=("TRUNCATE relative_data")
 del_relative_dataset=("TRUNCATE relative_dataset")
@@ -104,7 +108,7 @@ for row in dataset_info:
         if dataAmeta["viewLastModified"]-row[3]>0:
             delpart=1
 
-if delall==1:
+if delall==1 and init==0:
     cursordel.execute(del_relative_data)
     cursordel.execute(del_relative_dataset) 
     cursordel.execute(del_major_dataset) 
@@ -113,7 +117,7 @@ if delall==1:
     insert_to_major()
     insert_to_relative_data()
     insert_to_relative_dataset()
-elif delall==0 and delpart==1:
+elif delall==0 and delpart==1 and init==0:
     cursordel.execute(del_relative_data)
     cursordel.execute(del_relative_dataset) 
     cursordel.execute(del_major_dataset) 
@@ -121,8 +125,7 @@ elif delall==0 and delpart==1:
     insert_to_relative_data()
     insert_to_relative_dataset()     
 
-init=0
-if init==1:
+elif init==1:
     insert_to_neibourhood()
     insert_to_major()
     insert_to_relative_data()

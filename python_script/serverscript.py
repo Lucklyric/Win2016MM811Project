@@ -4,7 +4,11 @@ from pprint import pprint
 import mysql.connector
 import math
 from operator import itemgetter
+import sys
 
+cnx = mysql.connector.connect(user='root', password='',
+                              host='localhost',
+                              database='mm811project')
 def get_polygon(poly):
     coords=[]
     poly=poly.replace("(","")
@@ -75,8 +79,8 @@ def json_output(user_query):
             cursorn.close()
     cursor.close()       
     rank = sorted(out_array, key=itemgetter('score'), reverse=True)   
-    with open('output.json', 'wb') as outfile:
-        json.dump(rank, outfile)   
+    #with open('output.json', 'wb') as outfile:
+    print json.dumps(rank)   
 
 def ioio():
     with open('output.json') as data_file:    
@@ -100,12 +104,16 @@ def calculate_score(attributes,user_query,maxs):
             x.append(normalize)
             y.append(user_query[i])
     return euclidean_distance(x,y)
+   
+def main(argv):
+    user_query=[]
+    for i in argv.split(","):
+        user_query.append(i)
+    #user_query=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    json_output(user_query)
+    #ioio()
+    cnx.close()       
     
-cnx = mysql.connector.connect(user='root', password='',
-                              host='localhost',
-                              database='mm811project')
-user_query=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-json_output(user_query)
-#ioio()
-print "here"
-cnx.close()           
+if __name__ == "__main__":
+    main(sys.argv[1])
+    
