@@ -44,10 +44,9 @@ function MapManager(){
     this.moveToNei = function(neiData){
         console.log("start update map");
         console.log(neiData);
-        var nName = null; var neiInfo;
-        for (nName in neiData){
-            neiInfo = neiData[nName];
-        }
+        var neiInfo;
+        neiInfo = neiData;
+        var nName = neiInfo["name"];
         var neiPos = {
             lat:neiInfo["latitude"],
             lng:neiInfo["longitude"]

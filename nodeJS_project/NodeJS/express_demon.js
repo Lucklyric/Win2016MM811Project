@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var pythonShell = require('python-shell');
 var options = {
-	mode:'json',
+	mode:'text',
   	pythonPath: "E:/Program Files/Python27/python.exe"
 };
 //var fork = require('child_process').fork;
@@ -31,14 +31,15 @@ app.get('/', function (req, res) {
 	// 	res.send(m);
 	// });
 	// worker.send('a');
-	count++;
-    console.log('start'+count);
-    pythonShell.run('js_python.py', options, function (err, results) {
-  	if (err) throw err;
-  	// results is an array consisting of messages collected during execution
-  	res.send(results);
-	});
-	console.log('end'+count);
+	// count++;
+ //    console.log('start'+count);
+
+ //    pythonShell.run('js_python.py', options, function (err, results) {
+ //  	if (err) throw err;
+ //  	// results is an array consisting of messages collected during execution
+ //  	res.send(results);
+	// });
+	// console.log('end'+count);
 
 });
 
@@ -62,6 +63,9 @@ app.post('/fakequery',function (req, res) {
 	// });
 	// worker.send('a');
 	console.log('start:query');
+	options["args"] = [req.body["string"]];
+
+	console.log("run python shell"+ options);
     pythonShell.run('../../python_script/fake.py', options, function (err, results) {
   	if (err) throw err;
   	// results is an array consisting of messages collected during execution

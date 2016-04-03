@@ -12,7 +12,9 @@ function QueryManager(preloadIndiDiv,listManager,view1Tab){
             url: this.hostpath+"/fakequery/",
             type: "post", //send it through get method
             dataType:"json",
-            data :testdata,
+            data :{
+                string:testdata
+            },
             success: function (response) {
                 //var par = JSON.parse(response);
                // console.log(par);
