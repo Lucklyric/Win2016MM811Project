@@ -62,7 +62,7 @@ function VsListManager(apInstance,_vslistDiv,newqueryDiv,_mapInstance) {
                 vsListMangerInstance.myList.appendItem(
                     {
                         filename:randIndex,
-                        score:vsListMangerInstance.currentData[i]["attributes"][0].toString(),
+                        score:vsListMangerInstance.currentData[i]["score"].toFixed(0).toString(),
                         index:i,
                         name: nName.toString()
                     }
