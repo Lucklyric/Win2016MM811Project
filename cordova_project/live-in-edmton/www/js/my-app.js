@@ -45,6 +45,9 @@ $(document).ready(function(){
         $$("#view2Tab").trigger("click");
     });
 
+
+
+
     /**
      * query button function
      */
@@ -132,5 +135,20 @@ $(document).ready(function(){
         myQuery.fakeQuery(queryString);
     });
 
+    /**
+     * custom raido functions
+     */
+
+    $(".custom-radio").change(function(){
+        var otherRadios = document.getElementsByName(this.name);
+
+        if ($(this).val()==0){
+            for (var i = 1, length = otherRadios.length; i < length; i++) {
+                $(otherRadios[i]).prop('checked', false);
+            }
+        }else{
+           $(otherRadios[0]).prop('checked', false);
+        }
+    });
 
 });
