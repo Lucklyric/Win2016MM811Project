@@ -1,6 +1,6 @@
 // Initialize app and store it to myApp variable for futher access to its methods
 var myApp = new Framework7({material:true});
-var myQuery,myVsList,myMapManager,myTableManager;
+var myQuery,myVsList,myMapManager,myTableManager,myTableManager_back;
 // We need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
@@ -37,8 +37,11 @@ $(document).ready(function(){
     myMapManager.initialize();
     myVsList = new VsListManager(myApp,$("#vsList"),$("#newQueryDiv"),myMapManager);
     myQuery = new QueryManager($("#preload"),myVsList,$$("#view1Tab"));
-    myTableManager = new TableManager("container",myVsList,$("#detailButton"),$("#detail_Title"));
+    myTableManager = new TableManager("container",myVsList,$("#detailButton"),$("#detail_Title"),1);
+    myTableManager_back = new TableManager("container_back",myVsList,$("#detailButton"),$("#detail_Title"),2);
+
     myTableManager.initTable();
+    myTableManager_back.initTable();
     $$("#jumpButton").click(function(){
         console.log("click");
         $$("#view2Tab").trigger("click");

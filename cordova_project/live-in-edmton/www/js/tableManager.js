@@ -209,22 +209,46 @@ Highcharts.theme = {
 
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
-function TableManager(tableContainer,vsInstance,floatButtionDiv,labelDiv){
+function TableManager(tableContainer,vsInstance,floatButtionDiv,labelDiv,type){
     var tableManagerInstance = this;
     this.tableDiv = tableContainer;
     var highChartTable = null;
+    this.type = type;
     this.vsIntance = vsInstance;
     this.label = labelDiv;
+    this.title = "";
+    this.categories = [];
+    if (type == 1){
+        this.categories=['Playgrounds', 'Public Schools', 'Catholic School', 'SingleHouse', 'DuplexHouse','RowHouse','Apartment Five', 'Apartment Four', 'Hotel'];
+        this.defaultdata = [0,0,0,0,0,0,0,0,0];
+        this.title = "Environment Matching"
+    }else{
+        this.categories=[ 'Age<14', '14<Age<35','35<Age<60', '60<Age', 'Student', 'UnEmployed', 'Employed'];
+        this.defaultdata = [0,0,0,0,0,0,0];
+        this.title = "Background Matching"
 
+    }
     floatButtionDiv.click(function(){
        // console.log(tableManagerInstance.vsIntance.currentItem["name"]);
         tableManagerInstance.label.text(tableManagerInstance.vsIntance.currentItemData["name"]);
-        tableManagerInstance.highChartTable.series[0].setData(tableManagerInstance.vsIntance.currentItemData["attributes"]);
+        if (tableManagerInstance.type == 1) {
+            tableManagerInstance.highChartTable.series[0].setData(tableManagerInstance.vsIntance.currentItemData["attributes"].slice(0,8));
+        }else{
+            tableManagerInstance.highChartTable.series[0].setData(tableManagerInstance.vsIntance.currentItemData["attributes"].slice(9,15));
+        }
     });
 
     this.initTable = function(){
         tableManagerInstance.highChartTable = new Highcharts.Chart({
-            title:null,
+            title:{
+                text: tableManagerInstance.title,
+                style: {
+
+                    font: 'normal 14px Verdana'
+
+                },
+                y:10
+            },
 
             chart: {
                 type: 'bar',
@@ -233,7 +257,7 @@ function TableManager(tableContainer,vsInstance,floatButtionDiv,labelDiv){
             },
 
             xAxis: {
-                categories: ['Playgrounds', 'Public Schools', 'Catholic School', 'SingleHouse', 'DuplexHouse','RowHouse','Apartment Five', 'Apartment Four', 'Hotel', 'Age<14', '14<Age<35','35<Age<60', '60<Age', 'Student', 'UnEmployed', 'Employed']
+                categories: tableManagerInstance.categories
 
             },
             yAxis: {
@@ -244,7 +268,8 @@ function TableManager(tableContainer,vsInstance,floatButtionDiv,labelDiv){
                 },
                 labels: {
                     overflow: 'justify'
-                }
+                },
+                opposite:false
             },
             tooltip: {
                 valueSuffix: ' units'
@@ -271,7 +296,7 @@ function TableManager(tableContainer,vsInstance,floatButtionDiv,labelDiv){
             },
             series: [{
                 name: "Number of Unites",
-                data: [0, 0, 0, 0, 0,0, 0, 0, 0, 0,0, 0, 0, 0, 0]
+                data: tableManagerInstance.defaultdata
             }]
         });
 
