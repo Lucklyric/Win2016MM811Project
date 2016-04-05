@@ -2,6 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var pythonShell = require('python-shell');
+var service_status = 1;
 var options = {
 	mode:'text',
   	pythonPath: "E:/Program Files/Python27/python.exe"
@@ -91,12 +92,52 @@ app.post('/querycount',function (req, res) {
 	});
 });
 
+app.post('/service_status',function (req, res) {
+
+	res.send(service_status);
+    
+});
+
+
+
+app.post('/tableInformation',function (req, res) {
+
+    pythonShell.run('../../python_script/get_query_count.py', options, function (err, results) {
+  	if (err) throw err;
+  	// results is an array consisting of messages collected during execution
+  		res.send(results);
+  		console.log('end:query');
+	});
+});
+
+app.post('/updateTable',function (req, res) {
+	
+    pythonShell.run('../../python_script/update_server.py', options, function (err, results) {
+  	if (err) throw err;
+  	// results is an array consisting of messages collected during execution
+  		res.send(results);
+  		console.log('end:query');
+	});
+});
+
+
+/*
+* Here are some start shell command
+*/
+app.post('/restart_web_service',function (req, res) {
+	res.send("0");
+});
+
+app.post('/stop_web_service',function (req, res) {
+	res.send("0");
+});
+
 
 var server = app.listen(8081, 'localhost',function () {
 
-  var host = server.address().address
-  var port = server.address().port
+  var host = server.address().address;
+  var port = server.address().port;
 
-  console.log("应用实例，访问地址为 http://%s:%s", host, port)
+  console.log("应用实例，访问地址为 http://%s:%s", host, port);
 });
 
