@@ -23,26 +23,6 @@ urlEmeta="https://data.edmonton.ca/api/views/aaar-q4e3"
 #age
 urlAmeta="https://data.edmonton.ca/api/views/44iw-gmaw"
 
-#Neighbourhood name
-urlNN = "https://data.edmonton.ca/api/views/65fr-66s6/rows.json?accessType=DOWNLOAD"
-#Neighbourhood Boundaries
-urlNB = "https://data.edmonton.ca/api/views/nckr-nnqj/rows.json?accessType=DOWNLOAD"
-#Neighbourhoods (Centroid Point)
-urlNC="https://data.edmonton.ca/api/views/3b6m-fezs/rows.json?accessType=DOWNLOAD"
-#Playgrounds
-urlP="https://data.edmonton.ca/api/views/c4nr-3quz/rows.json?accessType=DOWNLOAD"
-#Edmonton Public Schools (2015 - 2016)
-urlEPS="https://data.edmonton.ca/api/views/ehbr-emhe/rows.json?accessType=DOWNLOAD"
-#Edmonton Catholic Schools (2015 - 2016)
-urlECS="https://data.edmonton.ca/api/views/f6w2-hzex/rows.json?accessType=DOWNLOAD"
-#Dwelling Unit By Structure Type (Neighbourhood) 
-urlDUST="https://data.edmonton.ca/api/views/bjgi-976r/rows.json?accessType=DOWNLOAD"
-#employment status
-urlE="https://data.edmonton.ca/api/views/aaar-q4e3/rows.json?accessType=DOWNLOAD"
-#age
-urlA="https://data.edmonton.ca/api/views/44iw-gmaw/rows.json?accessType=DOWNLOAD"
-
-
 cnx = mysql.connector.connect(user='root', password='',
                               host='localhost',
                               database='mm811project')

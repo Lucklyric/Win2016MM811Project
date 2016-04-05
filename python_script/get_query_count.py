@@ -32,6 +32,8 @@ def main():
 
     for row in query_data:
         datetag=time.mktime(row[17].timetuple())
+        datetag*=1000
+        #datetag=row[17]
         PLAYGROUNDS["data"].append([datetag,row[1]])
         PUBLIC_SCHOOLS["data"].append([datetag,row[2]])
         CATHOLIC_SCHOOLS["data"].append([datetag,row[3]])
@@ -65,8 +67,21 @@ def main():
     out_array.append(EMPLOYMENT_STUDENT)
     out_array.append(EMPLOYMENT_UNEMPLOYED)
     out_array.append(EMPLOYMENT_EMPLOYED)
-    #print out_array
-    print json.dumps(out_array)
+    #get all data count
+    cursorall=cnx.cursor()
+    cursorall.execute("SELECT SUM(NUM_PLAYGROUNDS),SUM(NUM_PUBLIC_SCHOOLS),SUM(NUM_CATHOLIC_SCHOOLS),SUM(NUM_SINGLE),SUM(NUM_DUPLEX),SUM(NUM_ROW_HOUSE),SUM(NUM_APARTMENT_FIVE),SUM(NUM_APARTMENT_FOUR),SUM(NUM_HOTEL),SUM(NUM_AGE_FOURTEEN),SUM(NUM_AGE_THIRTYFIVE),SUM(NUM_AGE_SIXTY),SUM(NUM_AGE_SIXTYPLUS),SUM(NUM_EMPLOYMENT_STUDENT),SUM(NUM_EMPLOYMENT_UNEMPLOYED),SUM(NUM_EMPLOYMENT_EMPLOYED) FROM daily_query")
+    all_count=cursorall.fetchall()
+    all_array=[]
+    for rrr in all_count:
+        for i in range(16):
+            all_array.append(int(rrr[i]))
+    final_array=[]
+    final_array.append(out_array)
+    final_array.append(all_array)
+    #print final_array
+    print json.dumps(final_array)
+    cursorq.close()
+    cursorall.close()
     cnx.close()
     
 if __name__ == "__main__":

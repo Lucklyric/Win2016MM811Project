@@ -94,7 +94,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Data Analysis</h1>
                     
-                    <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    <div id="container1" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
 
                     <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
@@ -121,14 +121,11 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="../dist/js/sb-admin-2.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 <script type="text/javascript">
 $(function () {
-    listall = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
-    //
-    curtime = new Date().getTime()
+    var listall = []
     var seriesOptions = []
     //[{"name":"MSFT","data":[[1238751100000,1],[1239148800000,2],[1239235200000,3],[1239580800000,4],[1239667200000,5],[1239753600000,6],[curtime,7]]},{"name":"AAPL","data":[[1239062400000,11],[1239148800000,12],[1239235200000,13],[1239580800000,14],[1239667200000,15],[1239753600000,16],[1239840000000,17]]},{"name":"GOOG","data":[[1239062400000,21],[1239148800000,22],[1239235200000,23],[1239580800000,24],[1239667200000,25],[1239753600000,26],[1239840000000,27]]},{"name":"BLZ","data":[[1238751100000,5],[1239148800000,6],[1239235200000,8],[1239580800000,14],[1239667200000,25],[1239753600000,36],[1239840000000,57]]}]
     //names = ['MSFT', 'AAPL', 'GOOG'];
@@ -144,7 +141,6 @@ $(function () {
             rangeSelector: {
                 selected: 4
             },
-
             yAxis: {
                 labels: {
                     formatter: function () {
@@ -157,80 +153,81 @@ $(function () {
                     color: 'silver'
                 }]
             },
-
-            plotOptions: {
-          
-            },
-
             tooltip: {
                 pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
                 valueDecimals: 2
             },
-
+            legend: {
+                enabled:true,
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
             series: seriesOptions
         });
     }
-
-    $('#container2').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'All time User Query Count'
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            categories: [
-            'PLAYGROUNDS',
-            'PUBLIC_SCHOOLS',
-            'CATHOLIC_SCHOOLS',
-            'SINGLE',
-            'DUPLEX',
-            'ROW_HOUSE',
-            'APARTMENT_FIVE',
-            'APARTMENT_FOUR',
-            'HOTEL',
-            'AGE_FOURTEEN',
-            'AGE_THIRTYFIVE',
-            'AGE_SIXTY',
-            'AGE_SIXTYPLUS',
-            'EMPLOYMENT_STUDENT',
-            'EMPLOYMENT_UNEMPLOYED',
-            'EMPLOYMENT_EMPLOYED'  
-            ],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
+    function createBar() {
+        $('#container2').highcharts({
+            chart: {
+                type: 'column'
+            },
             title: {
-                text: 'queries'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} queries</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            name: 'Query count of all time',
-            data: listall
-        }]
-    });
-    //createChart();
+                text: 'All time User Query Count'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                'PLAYGROUNDS',
+                'PUBLIC_SCHOOLS',
+                'CATHOLIC_SCHOOLS',
+                'SINGLE',
+                'DUPLEX',
+                'ROW_HOUSE',
+                'APARTMENT_FIVE',
+                'APARTMENT_FOUR',
+                'HOTEL',
+                'AGE_FOURTEEN',
+                'AGE_THIRTYFIVE',
+                'AGE_SIXTY',
+                'AGE_SIXTYPLUS',
+                'EMPLOYMENT_STUDENT',
+                'EMPLOYMENT_UNEMPLOYED',
+                'EMPLOYMENT_EMPLOYED'  
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'queries'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} queries</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Query count of all time',
+                data: listall
+            }]
+        });
+    }
 
     $.ajax({
-        url: "http://localhost/python_script/get_query_count.py",
+        url: "http://localhost:8081/querycount/",
         type: "post", //send it through get method
         dataType:"json",
         data :{
@@ -239,8 +236,11 @@ $(function () {
 
         success: function (response) {
             console.log(response);
-            seriesOptions = JSON.parse(response);
+            all_data = JSON.parse(response);
+            seriesOptions=all_data[0];
+            listall=all_data[1]
             createChart();
+            createBar();
         },
         error: function (xhr) {
             //Do Something to handle error
