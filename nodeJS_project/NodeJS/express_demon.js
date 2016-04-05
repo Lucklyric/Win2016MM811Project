@@ -74,6 +74,24 @@ app.post('/fakequery',function (req, res) {
 	});
 });
 
+app.post('/querycount',function (req, res) {
+	// var worker = fork('child_python.js')
+	
+	// worker.on('message',function(m){
+	// 	worker.kill();
+	// 	res.send(m);
+	// });
+	// worker.send('a');
+	
+    pythonShell.run('../../python_script/get_query_count.py', options, function (err, results) {
+  	if (err) throw err;
+  	// results is an array consisting of messages collected during execution
+  		res.send(results);
+  		console.log('end:query');
+	});
+});
+
+
 var server = app.listen(8081, 'localhost',function () {
 
   var host = server.address().address
