@@ -3,14 +3,14 @@ from pprint import pprint
 import mysql.connector
 import math
 from operator import itemgetter
-import sys
+import datetime
+import time
 
 def main():
     cnx = mysql.connector.connect(user='root', password='',
                                   host='localhost',
                                   database='mm811project')
     cursorq=cnx.cursor()
-    start_end=(start,end)
     cursorq.execute("SELECT * FROM daily_query ORDER BY CREATE_TS")
     query_data=cursorq.fetchall()
     PLAYGROUNDS={"name":"PLAYGROUNDS","data":[]}
@@ -31,22 +31,23 @@ def main():
     EMPLOYMENT_EMPLOYED={"name":"EMPLOYMENT_EMPLOYED","data":[]}
 
     for row in query_data:
-        PLAYGROUNDS["data"].append([row[17],row[1]])
-        PUBLIC_SCHOOLS["data"].append([row[17],row[2]])
-        CATHOLIC_SCHOOLS["data"].append([row[17],row[3]])
-        SINGLE["data"].append([row[17],row[4]])
-        DUPLEX["data"].append([row[17],row[5]])
-        ROW_HOUSE["data"].append([row[17],row[6]])
-        APARTMENT_FIVE["data"].append([row[17],row[7]])
-        APARTMENT_FOUR["data"].append([row[17],row[8]])
-        HOTEL["data"].append([row[17],row[9]])
-        AGE_FOURTEEN["data"].append([row[17],row[10]])
-        AGE_THIRTYFIVE["data"].append([row[17],row[11]])
-        AGE_SIXTY["data"].append([row[17],row[12]])
-        AGE_SIXTYPLUS["data"].append([row[17],row[13]])
-        EMPLOYMENT_STUDENT["data"].append([row[17],row[14]])
-        EMPLOYMENT_UNEMPLOYED["data"].append([row[17],row[15]])
-        EMPLOYMENT_EMPLOYED["data"].append([row[17],row[16]])
+        datetag=time.mktime(row[17].timetuple())
+        PLAYGROUNDS["data"].append([datetag,row[1]])
+        PUBLIC_SCHOOLS["data"].append([datetag,row[2]])
+        CATHOLIC_SCHOOLS["data"].append([datetag,row[3]])
+        SINGLE["data"].append([datetag,row[4]])
+        DUPLEX["data"].append([datetag,row[5]])
+        ROW_HOUSE["data"].append([datetag,row[6]])
+        APARTMENT_FIVE["data"].append([datetag,row[7]])
+        APARTMENT_FOUR["data"].append([datetag,row[8]])
+        HOTEL["data"].append([datetag,row[9]])
+        AGE_FOURTEEN["data"].append([datetag,row[10]])
+        AGE_THIRTYFIVE["data"].append([datetag,row[11]])
+        AGE_SIXTY["data"].append([datetag,row[12]])
+        AGE_SIXTYPLUS["data"].append([datetag,row[13]])
+        EMPLOYMENT_STUDENT["data"].append([datetag,row[14]])
+        EMPLOYMENT_UNEMPLOYED["data"].append([datetag,row[15]])
+        EMPLOYMENT_EMPLOYED["data"].append([datetag,row[16]])
     out_array=[]
     out_array.append(PLAYGROUNDS)
     out_array.append(PUBLIC_SCHOOLS)
@@ -64,6 +65,7 @@ def main():
     out_array.append(EMPLOYMENT_STUDENT)
     out_array.append(EMPLOYMENT_UNEMPLOYED)
     out_array.append(EMPLOYMENT_EMPLOYED)
+    #print out_array
     print json.dumps(out_array)
     cnx.close()
     

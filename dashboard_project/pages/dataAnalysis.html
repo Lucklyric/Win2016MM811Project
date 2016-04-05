@@ -129,8 +129,9 @@ $(function () {
     listall = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
     //
     curtime = new Date().getTime()
-    var seriesOptions = [{"name":"MSFT","data":[[1238751100000,1],[1239148800000,2],[1239235200000,3],[1239580800000,4],[1239667200000,5],[1239753600000,6],[curtime,7]]},{"name":"AAPL","data":[[1239062400000,11],[1239148800000,12],[1239235200000,13],[1239580800000,14],[1239667200000,15],[1239753600000,16],[1239840000000,17]]},{"name":"GOOG","data":[[1239062400000,21],[1239148800000,22],[1239235200000,23],[1239580800000,24],[1239667200000,25],[1239753600000,26],[1239840000000,27]]},{"name":"BLZ","data":[[1238751100000,5],[1239148800000,6],[1239235200000,8],[1239580800000,14],[1239667200000,25],[1239753600000,36],[1239840000000,57]]}]
-    names = ['MSFT', 'AAPL', 'GOOG'];
+    var seriesOptions = []
+    //[{"name":"MSFT","data":[[1238751100000,1],[1239148800000,2],[1239235200000,3],[1239580800000,4],[1239667200000,5],[1239753600000,6],[curtime,7]]},{"name":"AAPL","data":[[1239062400000,11],[1239148800000,12],[1239235200000,13],[1239580800000,14],[1239667200000,15],[1239753600000,16],[1239840000000,17]]},{"name":"GOOG","data":[[1239062400000,21],[1239148800000,22],[1239235200000,23],[1239580800000,24],[1239667200000,25],[1239753600000,26],[1239840000000,27]]},{"name":"BLZ","data":[[1238751100000,5],[1239148800000,6],[1239235200000,8],[1239580800000,14],[1239667200000,25],[1239753600000,36],[1239840000000,57]]}]
+    //names = ['MSFT', 'AAPL', 'GOOG'];
     //names = ['PLAYGROUNDS','PUBLIC_SCHOOLS','CATHOLIC_SCHOOLS','SINGLE','DUPLEX','ROW_HOUSE','APARTMENT_FIVE','APARTMENT_FOUR','HOTEL','AGE_FOURTEEN','AGE_THIRTYFIVE','AGE_SIXTY','AGE_SIXTYPLUS','EMPLOYMENT_STUDENT','EMPLOYMENT_UNEMPLOYED','EMPLOYMENT_EMPLOYED'  ]
     /**
      * Create the chart when all data is loaded
@@ -226,17 +227,18 @@ $(function () {
             data: listall
         }]
     });
-    createChart();
-/*
+    //createChart();
+
     $.ajax({
-        url: this.hostpath+"/fakequery/",
+        url: "http://localhost/python_script/get_query_count.py",
         type: "post", //send it through get method
         dataType:"json",
         data :{
-            string:testdata
+            //string:testdata
         },
+
         success: function (response) {
-            //console.log(response);
+            console.log(response);
             seriesOptions = JSON.parse(response);
             createChart();
         },
@@ -244,7 +246,7 @@ $(function () {
             //Do Something to handle error
         }
     });
-*/
+
 });
 </script>
 
