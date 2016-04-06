@@ -224,7 +224,7 @@
     var tablesInformation;
     var public_table = null;
     var query_table = null;
-    var hostpath = "http://localhost:8081/";
+    var hostpath = "http://54.186.220.31:8081/";
     $('.loading1').shCircleLoader({
         keyframes:
                 '0%   { background:black}\
@@ -287,6 +287,7 @@
             public_table.row.add(rawInfo);
         }
         public_table.draw();
+        query_table.clear();
         for (var i = 0 ; i <queryTableinfo.length;i++){
             var rawInfo=[];
             rawInfo.push(queryTableinfo[i]['name']);
@@ -403,8 +404,7 @@
                     }
                     $('.loading1').hide();
                     $('#noticmodal').modal('show');
-                    refreshTableData();
-
+                    getTablesInformation();
 
                 },
                 error: function (xhr) {
