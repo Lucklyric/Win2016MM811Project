@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Live-in-Edmonton Admin Beta v0.1</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,6 +35,7 @@
 <body>
 
     <div class="container">
+        <h1 style="text-align: center">Live-in-Edmonton Admin Beta v0.1</h1>
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
@@ -45,10 +46,10 @@
                         <form role="form">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input id="userid" class="form-control" placeholder="E-mail" name="userid" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input id ="pwd"class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>
@@ -56,7 +57,7 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+                                <a id="loginbutton" class="btn btn-lg btn-success btn-block">Login</a>
                             </fieldset>
                         </form>
                     </div>
@@ -76,6 +77,18 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#loginbutton").click(function(){
+                if ($("#userid").val()=="admin" && $("#pwd").val()=="admin"){
+                    window.location.href = "index.html#";
+                }else{
+
+                }
+            });
+        });
+    </script>
 
 </body>
 

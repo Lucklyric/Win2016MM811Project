@@ -168,7 +168,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Name</th>
-                                                    <th>Url</th>
+                                                    <th>URL</th>
                                                     <th>LastUpdate</th>
 
                                                 </tr>
@@ -181,7 +181,6 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Name</th>
-                                                    <th>Url</th>
                                                     <th>Num of Records</th>
                                                     <th>LastUpdate</th>
                                                 </tr>
@@ -275,7 +274,29 @@
         });
     }
 
-
+    function refreshTableData(){
+        public_table.clear();
+        var publicTbaleinfo = tablesInformation[0];
+        var queryTableinfo = tablesInformation[1];
+        for (var i = 0 ; i <publicTbaleinfo.length;i++){
+            var rawInfo=[];
+            rawInfo.push(publicTbaleinfo[i]['name']);
+            rawInfo.push('<a href="'+publicTbaleinfo[i]['URL']+'">link</a>');
+            var date = (new Date(publicTbaleinfo[i]['lastUpdate']*1000).toString());
+            rawInfo.push(date);
+            public_table.row.add(rawInfo);
+        }
+        public_table.draw();
+        for (var i = 0 ; i <queryTableinfo.length;i++){
+            var rawInfo=[];
+            rawInfo.push(queryTableinfo[i]['name']);
+            rawInfo.push(queryTableinfo[i]['Row Count']);
+            var date = (new Date(queryTableinfo[i]['lastUpdate']*1000).toString());
+            rawInfo.push(date);
+            query_table.row.add(rawInfo);
+        }
+        query_table.draw();
+    }
     /**
      *  Function to get all the table's information
      */
@@ -286,9 +307,10 @@
             dataType: "json",
 
             success: function (response) {
-                console.log(response);
+               // console.log(response);
                 tablesInformation = JSON.parse(response);
-               // console.log(tablesInformation);
+                console.log(tablesInformation);
+                refreshTableData();
 
 
             },
@@ -299,17 +321,28 @@
         });
     }
 
-    function refreshTableData(){
 
-    }
 
     $(document).ready(function () {
         checkServerStatus();
-        getTablesInformation();
         public_table = $('#publicTable').DataTable( {
+            bAutoWidth: false ,
+            aoColumns : [
+                { "sWidth": "40%"},
+                { "sWidth": "30%"},
+                { "sWidth": "30%"}
+            ]
         } );
         query_table = $('#queryTable').DataTable( {
+            bAutoWidth: false ,
+            aoColumns : [
+                { "sWidth": "40%"},
+                { "sWidth": "30%"},
+                { "sWidth": "30%"}
+            ]
         } );
+        getTablesInformation();
+
         /**
          * restart-service button call back
          */
@@ -370,6 +403,8 @@
                     }
                     $('.loading1').hide();
                     $('#noticmodal').modal('show');
+                    refreshTableData();
+
 
                 },
                 error: function (xhr) {
@@ -399,6 +434,7 @@
                     }else{
                         $("#modal-text").text("Update Public Database Failed");
                     }
+                    refreshTableData();
                     $('.loading1').hide();
                     $('#noticmodal').modal('show');
                 },
