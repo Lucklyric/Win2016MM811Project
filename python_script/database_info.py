@@ -9,24 +9,33 @@ def main():
                                   host='localhost',
                                   database='mm811project')
     cursori=cnx.cursor()
-    cursori.execute("SELECT * FROM daily_query ORDER BY CREATE_TS DESC")
-    daily_info=cursori.fetchall()
-    #get all data count
+    cursoru=cnx.cursor()
+    cursori.execute("SELECT CREATE_TS,COUNT(ID) FROM daily_query ORDER BY CREATE_TS DESC")
+    daily_info=cursori.fetchall()    
+    cursoru.execute("SELECT CREATE_TS,COUNT(ID) FROM user_query ORDER BY CREATE_TS DESC")
+    query_info=cursoru.fetchall()
     cursor=cnx.cursor()
     cursor.execute("SELECT * FROM relative_dataset")
-    final_array=[]    
     relative_info=cursor.fetchall()
-    for row in daily_info:
-        print row[17]
-        ddict={"name":"Daily Query","URL":"-","lastUpdate":time.mktime(row[17].timetuple())}
-        final_array.append(ddict)
+    query_array=[]
+    data_array=[]    
+    for r in daily_info:
+        ddict={"name":"Daily Query","URL":"-","lastUpdate":time.mktime(r[0].timetuple()),"Row Count":r[1]}
+        query_array.append(ddict)
         break;
-    for roow in relative_info:
-        ddict={"name":roow[1],"URL":roow[2],"lastUpdate":roow[3]}
-        final_array.append(ddict)
-    #print final_array
+    for rr in query_info:
+        ddict={"name":"User Query","URL":"-","lastUpdate":time.mktime(rr[0].timetuple()),"Row Count":rr[1]}
+        query_array.append(ddict)
+        break;        
+    for rrr in relative_info:
+        ddict={"name":rrr[1],"URL":rrr[2],"lastUpdate":rrr[3]}
+        data_array.append(ddict)
+    final_array=[]
+    final_array.append(data_array)
+    final_array.append(query_array)
     print json.dumps(final_array)
     cursori.close()
+    cursoru.close()
     cursor.close()
     cnx.close()
     
