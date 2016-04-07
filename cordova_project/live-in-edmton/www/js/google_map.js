@@ -10,7 +10,7 @@ function MapManager(){
 
     this.initialize=function() {
         var mapProp = {
-            center:new google.maps.LatLng(51.508742,-0.120850),
+            center:new google.maps.LatLng(70.508742,53.120850),
             zoom:10,
             mapTypeId:google.maps.MapTypeId.ROADMAP
         };

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Live-in-Edmonton Admin Beta v1.0.1</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Live-in-Edmonton Admin Beta v0.1</a>
+            <a class="navbar-brand" href="index.html">Live-in-Edmonton Admin Beta v1.0.1</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -125,8 +125,8 @@
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 <script type="text/javascript">
 $(function () {
-    var listall = []
-    var seriesOptions = []
+    var listall = [];
+    var seriesOptions = [];
     //[{"name":"MSFT","data":[[1238751100000,1],[1239148800000,2],[1239235200000,3],[1239580800000,4],[1239667200000,5],[1239753600000,6],[curtime,7]]},{"name":"AAPL","data":[[1239062400000,11],[1239148800000,12],[1239235200000,13],[1239580800000,14],[1239667200000,15],[1239753600000,16],[1239840000000,17]]},{"name":"GOOG","data":[[1239062400000,21],[1239148800000,22],[1239235200000,23],[1239580800000,24],[1239667200000,25],[1239753600000,26],[1239840000000,27]]},{"name":"BLZ","data":[[1238751100000,5],[1239148800000,6],[1239235200000,8],[1239580800000,14],[1239667200000,25],[1239753600000,36],[1239840000000,57]]}]
     //names = ['MSFT', 'AAPL', 'GOOG'];
     //names = ['PLAYGROUNDS','PUBLIC_SCHOOLS','CATHOLIC_SCHOOLS','SINGLE','DUPLEX','ROW_HOUSE','APARTMENT_FIVE','APARTMENT_FOUR','HOTEL','AGE_FOURTEEN','AGE_THIRTYFIVE','AGE_SIXTY','AGE_SIXTYPLUS','EMPLOYMENT_STUDENT','EMPLOYMENT_UNEMPLOYED','EMPLOYMENT_EMPLOYED'  ]
@@ -238,7 +238,7 @@ $(function () {
             console.log(response);
             all_data = JSON.parse(response);
             seriesOptions=all_data[0];
-            listall=all_data[1]
+            listall=all_data[1];
             createChart();
             createBar();
         },
