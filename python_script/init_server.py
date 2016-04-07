@@ -233,12 +233,12 @@ def insert_to_relative_dataset():
     insert_relative_dataset=("INSERT INTO relative_dataset "
                "(DATASET_NAME,DATASET_URL,DATASET_LASTUPADE) "
                "VALUES (%s,%s,%s)")     
-    PLAYGROUNDS=(dataP["meta"]["view"]["name"],urlP,dataP["meta"]["view"]["viewLastModified"])
-    PUBLIC_SCHOOLS=(dataEPS["meta"]["view"]["name"],urlEPS,dataEPS["meta"]["view"]["viewLastModified"])
-    CATHOLIC_SCHOOLS=(dataECS["meta"]["view"]["name"],urlECS,dataECS["meta"]["view"]["viewLastModified"])
-    STRUCTURE_TYPE=(dataDUST["meta"]["view"]["name"],urlDUST,dataDUST["meta"]["view"]["viewLastModified"])
-    AGE=(dataA["meta"]["view"]["name"],urlA,dataA["meta"]["view"]["viewLastModified"]) 
-    EMPLOYMENT=(dataE["meta"]["view"]["name"],urlE,dataE["meta"]["view"]["viewLastModified"]) 
+    PLAYGROUNDS=(dataP["meta"]["view"]["name"],urlP,dataP["meta"]["view"]["rowsUpdatedAt"])
+    PUBLIC_SCHOOLS=(dataEPS["meta"]["view"]["name"],urlEPS,dataEPS["meta"]["view"]["rowsUpdatedAt"])
+    CATHOLIC_SCHOOLS=(dataECS["meta"]["view"]["name"],urlECS,dataECS["meta"]["view"]["rowsUpdatedAt"])
+    STRUCTURE_TYPE=(dataDUST["meta"]["view"]["name"],urlDUST,dataDUST["meta"]["view"]["rowsUpdatedAt"])
+    AGE=(dataA["meta"]["view"]["name"],urlA,dataA["meta"]["view"]["rowsUpdatedAt"]) 
+    EMPLOYMENT=(dataE["meta"]["view"]["name"],urlE,dataE["meta"]["view"]["rowsUpdatedAt"]) 
     cursord=cnx.cursor()
     cursord.execute(insert_relative_dataset,PLAYGROUNDS)
     cursord.execute(insert_relative_dataset,PUBLIC_SCHOOLS)
