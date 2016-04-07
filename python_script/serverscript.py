@@ -118,7 +118,6 @@ def main(argv):
     for i in argv.split(","):
         user_query.append(int(i))
     #user_query=[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    print user_query
     insert_user_query(user_query)    
     json_output(user_query)
     #ioio()
