@@ -61,31 +61,31 @@ for row in dataset_info:
     dataAmeta = json.loads(jfile)    
  
     if dataNNmeta["name"].lower()==row[1]:
-        if dataNNmeta["viewLastModified"]-row[3]>0:
+        if dataNNmeta["rowsUpdatedAt"]-row[3]>0:
             delall=1
     elif dataNBmeta["name"].lower()==row[1]:
-        if dataNBmeta["viewLastModified"]-row[3]>0:    
+        if dataNBmeta["rowsUpdatedAt"]-row[3]>0:    
             delall=1
     elif dataNCmeta["name"].lower()==row[1]:
-        if dataNCmeta["viewLastModified"]-row[3]>0:    
+        if dataNCmeta["rowsUpdatedAt"]-row[3]>0:    
             delall=1
     elif dataPmeta["name"].lower()==row[1]:
-        if dataPmeta["viewLastModified"]-row[3]>0:     
+        if dataPmeta["rowsUpdatedAt"]-row[3]>0:     
             delpart=1
     elif dataEPSmeta["name"].lower()==row[1]:
-        if dataEPSmeta["viewLastModified"]-row[3]>0: 
+        if dataEPSmeta["rowsUpdatedAt"]-row[3]>0: 
             delpart=1
     elif dataECSmeta["name"].lower()==row[1]:
-        if dataECSmeta["viewLastModified"]-row[3]>0:     
+        if dataECSmeta["rowsUpdatedAt"]-row[3]>0:     
             delpart=1          
     elif dataDUSTmeta["name"].lower()==row[1]:
-        if dataDUSTmeta["viewLastModified"]-row[3]>0: 
+        if dataDUSTmeta["rowsUpdatedAt"]-row[3]>0: 
             delpart=1
     elif dataEmeta["name"].lower()==row[1]:
-        if dataEmeta["viewLastModified"]-row[3]>0:    
+        if dataEmeta["rowsUpdatedAt"]-row[3]>0:    
             delpart=1
     elif dataAmeta["name"].lower()==row[1]:
-        if dataAmeta["viewLastModified"]-row[3]>0:
+        if dataAmeta["rowsUpdatedAt"]-row[3]>0:
             delpart=1
 
 if delall==1 and init==0:
