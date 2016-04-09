@@ -3,3 +3,4 @@ cordova_project/live-in-edmton/plugins/ios.json
 cordova_project/live-in-edmton/www/www.iml
 dashboard_project/.idea/
 *.pyc
+www_web_project/.idea/

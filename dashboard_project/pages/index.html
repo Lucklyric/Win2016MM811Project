@@ -139,19 +139,25 @@
                                         <div class="tab-pane active" id="panel-691253">
                                             <div style="display:none;position:absolute;margin-left: 45%;margin-top: 20%" class="loading1"></div>
                                             <div class="row" style="margin-top:1% ">
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <button id="restart-service" type="button"
                                                             class="btn btn-success btn-lg btn-block">
                                                         Restart Web Service
                                                     </button>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
+                                                    <button id="toogle-app-service" type="button"
+                                                            class="btn btn-warning btn-lg btn-block">
+                                                        Stop Web Service
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3">
                                                     <button id="update-query" type="button"
                                                             class="btn btn-danger btn-lg btn-block">
                                                         Manually Update Query Database
                                                     </button>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <button id="update-database" type="button"
                                                             class="btn btn-block btn-info btn-lg">
                                                         Manually Update Public Database
@@ -206,7 +212,24 @@
 <!-- /#wrapper -->
 <!-- jQuery -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../js/cookieManager.js"></script>
+<script>
+    /**
+     * check login cookies
+     */
+    var tmp_account = getAdminCookie('adminaccount');
+    var tmp_password = getAdminCookie('adminpassword');
 
+    console.log("get Admin cookies:" + tmp_account + tmp_password);
+    if (tmp_account != null && tmp_account != "" && tmp_password != null && tmp_password != "") {
+        var superAdminId = tmp_account;
+        var superAdminPwd = tmp_password;
+        setAdminCookie('adminaccount', superAdminId, 20);
+        setAdminCookie('adminpassword', superAdminPwd, 20);
+    } else {
+        self.location = 'login.html';
+    }
+</script>
 <!-- Bootstrap Core JavaScript -->
 <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
@@ -224,7 +247,17 @@
     var tablesInformation;
     var public_table = null;
     var query_table = null;
-    var hostpath = "http://54.186.220.31:8081/";
+    var hostpath = "http://localhost:8081/";
+    var app_service_status = 1;
+
+    function refreshButton(){
+        if (app_service_status == 1){
+            $('#toogle-app-service').text('Stop App Service');
+        }else{
+            $('#toogle-app-service').text('Start App Service');
+        }
+    }
+
     $('.loading1').shCircleLoader({
         keyframes:
                 '0%   { background:black}\
@@ -249,26 +282,45 @@
     function checkServerStatus(){
 
         $('.loading1').show();
-        appendText("Checking Service Status...")
+        appendText("Checking Web Service Status...");
         $.ajax({
             url: hostpath + "service_status",
             type: "post", //send it through get method
             dataType: "json",
-
             success: function (response) {
                 console.log(response);
                 if (response=="1"){
-                    appendText("Service is running.");
+                    appendText("Web Service is running.");
                 }else{
-                    appendText("Service is stopped.");
+                    appendText("Web Service is stopped.");
                 }
                 $('.loading1').hide();
-
-
             },
             error: function (xhr) {
                 $('.loading1').hide();
-
+                //Do Something to handle error
+            }
+        });
+        //***check app service status
+        appendText("Checking Service Status...");
+        $.ajax({
+            url: hostpath + "app_service_status",
+            type: "post", //send it through get method
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response=="1"){
+                    app_service_status = 1;
+                    appendText("App Service is running.");
+                }else{
+                    appendText("App Service is stopped.");
+                    app_service_status = 0;
+                }
+                $('.loading1').hide();
+                refreshButton();
+            },
+            error: function (xhr) {
+                $('.loading1').hide();
                 //Do Something to handle error
             }
         });
@@ -312,7 +364,6 @@
                 tablesInformation = JSON.parse(response);
                 console.log(tablesInformation);
                 refreshTableData();
-
 
             },
             error: function (xhr) {
@@ -437,6 +488,56 @@
                     refreshTableData();
                     $('.loading1').hide();
                     $('#noticmodal').modal('show');
+                },
+                error: function (xhr) {
+                    //Do Something to handle error
+                    $('.loading1').hide();
+                    $("#modal-text").text("Update Public Database Connection Error");
+                    $('#noticmodal').modal('show');
+
+                }
+            });
+
+        });
+
+        /**
+         * togle app service
+         */
+        $("#toogle-app-service").click(function () {
+            $('.loading1').show();
+            var node_api = "";
+            if (app_service_status == 1){
+                appendText("Start requesting Stop app service");
+                node_api = "stop_app_server";
+            }else{
+                appendText("Start requesting Start app service");
+                node_api = "start_app_server";
+            }
+            $.ajax({
+                url: hostpath + node_api,
+                type: "post", //send it through get method
+                dataType: "json",
+
+                success: function (response) {
+
+                    if (response == "1"){
+                        appendText("App service has been started");
+                        $("#modal-text").text("App service has been started");
+                        app_service_status = 1;
+                    }else if (response == "2"){
+                        appendText("App service has been stopped");
+                        $("#modal-text").text("App service has been stopped");
+                        app_service_status = 0;
+                    }
+
+                    $('.loading1').hide();
+                    $('#noticmodal').modal('show');
+
+
+                    /**
+                     * refresh button status
+                     */
+                    refreshButton();
                 },
                 error: function (xhr) {
                     //Do Something to handle error

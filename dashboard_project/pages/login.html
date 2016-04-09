@@ -68,6 +68,8 @@
 
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script>var ifLoginPage = true;</script>
+    <script src="../js/cookieManager.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -82,6 +84,10 @@
         $(document).ready(function(){
             $("#loginbutton").click(function(){
                 if ($("#userid").val()=="admin" && $("#pwd").val()=="admin"){
+                    var superAdminId = $("#userid").val();
+                    var superAdminPwd =  $("#pwd").val();
+                    setAdminCookie('adminaccount', superAdminId, 2000);
+                    setAdminCookie('adminpassword', superAdminPwd, 2000);
                     window.location.href = "index.html#";
                 }else{
 

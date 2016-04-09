@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+    <!--
+    Customize this policy to fit your own app's needs. For more guidance, see:
+        https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+    Some notes:
+        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+        * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add 'unsafe-inline' to default-src
+    -->
+    <!--<meta http-equiv="Content-Security-Policy"-->
+    <!--content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <!--<meta charset="utf-8">-->
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--<meta name="apple-mobile-web-app-status-bar-style" content="black">-->
+    <!-- Path to Framework7 iOS CSS theme styles-->
+    <link rel="stylesheet" href="dist/css/framework7.material.min.css">
+    <!-- Path to Framework7 iOS related color styles -->
+    <link rel="stylesheet" href="dist/css/framework7.material.colors.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css">
+    <title>Welcome to Edmonton</title>
+</head>
+<body class="layout-dark theme-purple">
+<!-- Status bar overlay for full screen mode (PhoneGap) -->
+<div class="statusbar-overlay"></div>
+<!-- Panels overlay-->
+<div class="panel-overlay"></div>
+<!-- Bottom Tabbar-->
+
+<div class="toolbar tabbar ripple-red tabbar-labels">
+    <!-- Floatin Action Button -->
+
+    <div class="toolbar-inner">
+
+        <a href="#view-1" id="view1Tab" class="tab-link active ripple-white "><img src="img/icons/map.ico" height="26"
+                                                                                   width="26"><span
+                class="tabbar-label">Map</span></a>
+        <a href="#view-2" id="view2Tab" class="tab-link ripple-white"><img src="img/icons/search.png" height="26"
+                                                                           width="26"><span
+                class="tabbar-label">Query</span></a>
+    </div>
+</div>
+
+<!-- Views -->
+<!-- Floating Action Button -->
+<!-- Floatin Action Button -->
+
+
+<div class="views tabs toolbar-through">
+
+    <div id="view-1" class="view view-main tab active" >
+        <div id="google-loading" class="content-block"
+             style="height: 90%;width: 70%;padding:1px;margin-top: -1px;margin-bottom: 0;background-color: #929292;position:absolute">
+            <h1 style="text-align: center">Loading Map....</h1>
+
+            <a href="#" id="detailButton" data-popup=".neiDetails" class="floating-button color-pink open-popup"
+               style="left:3%;bottom:5%">
+                <i class="icon icon-plus"></i>
+            </a>
+        </div>
+
+        <div id="google-div" class="content-block"
+             style="float: left;height: 90%;width:70%;padding:1px;margin-top: -1px;margin-bottom: 0">
+            <div id="googleMap" style="height: 100%"></div>
+        </div>
+
+        <div class="pages" style="width: 30%;float: left">
+            <!--</div>-->
+            <!--</div>-->
+            <div data-page="index-2" class="page" style="height: 90%">
+
+                <div class="page-content">
+
+                    <!-- Content block -->
+                    <!-- Virtual List -->
+                    <div id="newQueryDiv" class="content-block" style="position:absolute;width:100%">
+                        <h1 style="text-align: center">There is no results</h1>
+                        <a href="#" id="jumpButton" class="button  button-big button-fill button-raised color-pink"
+                           style="top:0;width:100%;">
+                            Start a new query
+                        </a>
+                    </div>
+
+                    <div class="content-block">
+
+                        <div id="vsList" class="list-block virtual-list">
+                            <!-- keep it empty -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second view (for second wrap)-->
+    <div id="view-2" class="view tab">
+        <!-- 自定义尺寸的默认加载器 -->
+
+        <div class="pages">
+            <div data-page="index-2" class="page">
+                <div id="preload"
+                     style="z-index:100;display: none;position:absolute;top:50% ;left: 50%;transform:translate(-50%, 0);">
+                    <span style="width:42px; height:42px;" class="preloader"></span>
+                </div>
+                <!-- Floating Action Button -->
+                <!--<div class="navbar">-->
+                <!--<div class="navbar-inner">-->
+                <!--</div>-->
+                <!--</div>-->
+                <a href="#" id="fakequery" class="button  button-big button-fill button-raised color-pink"
+                   style="top:2%;width:90%;margin:auto">
+                    Query
+                </a>
+                <div class="page-content" style="z-index: -1">
+
+                    <div class="content-block">
+                        <p>Environmental Options:</p>
+
+                        <div class="content-block-title">PlayGround</div>
+                        <div class="list-block">
+                            <ul>
+                                <!-- Single radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <!-- Checked by default -->
+                                        <input type="radio" name="play" value="0" checked="checked">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Don't Care</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="radio" name="play" value="1">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Care</div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content-block-title">Public Schools</div>
+                        <div class="list-block">
+                            <ul>
+                                <!-- Single radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <!-- Checked by default -->
+                                        <input type="radio" name="pSchool" value="0" checked="checked">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Don't Care</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="radio" name="pSchool" value="1">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Care</div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content-block-title">Cath Schools</div>
+                        <div class="list-block">
+                            <ul>
+                                <!-- Single radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <!-- Checked by default -->
+                                        <input type="radio" name="cSchool" value="0" checked="checked">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Don't Care</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="radio" name="cSchool" value="1">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Care</div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content-block-title">Residential Structure</div>
+                        <div class="list-block">
+                            <ul>
+                                <!-- Single radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <!-- Checked by default -->
+                                        <input type="checkbox" class = "custom-radio" name="struct" value="0" checked="checked">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Don't Care</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox" class = "custom-radio"  name="struct" value="1">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Single</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox" class = "custom-radio"  name="struct" value="2">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Duplex</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox" class = "custom-radio" name="struct" value="3">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Row House</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox" class = "custom-radio" name="struct" value="4">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Appartment 5 </div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox" class = "custom-radio" name="struct" value="5">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Appartment 4</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox" class = "custom-radio"  name="struct" value="6">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Hotel</div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <p>Background Matching Options:</p>
+                        <div class="content-block-title">Age</div>
+                        <div class="list-block">
+                            <ul>
+                                <!-- Single radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <!-- Checked by default -->
+                                        <input type="checkbox"  class = "custom-radio" name="age" value="0" checked="checked">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Don't Care</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox"  class = "custom-radio" name="age" value="1">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title"><14</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox"  class = "custom-radio" name="age" value="2">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">14~35</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox"  class = "custom-radio" name="age" value="3">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">35~60</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox"  class = "custom-radio" name="age" value="4">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">60+</div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content-block-title">Employment Status</div>
+                        <div class="list-block">
+                            <ul>
+                                <!-- Single radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <!-- Checked by default -->
+                                        <input type="checkbox"  class = "custom-radio" name="emp" value="0" checked="checked">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Don't Care</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox"  class = "custom-radio" name="emp" value="1">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Unemplement</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <!-- Another radio input -->
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox"  class = "custom-radio" name="emp" value="2">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Emplement</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox" class = "custom-radio" name="emp" value="3">
+                                        <div class="item-media">
+                                            <i class="icon icon-form-radio"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">Student</div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="content-block" style="height: 10%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup neiDetails tablet-fullscreen" style="background-color: rgba(0,0,0,0.5)">
+
+    <div class="page-content">
+        <div class="content-block" style="margin: 1%">
+            <h1 id = "detail_Title" style="text-align: center; color:white;margin:2px;padding:0" >Details</h1>
+            <a href="#" class=" close-popup button  button-big button-fill button-raised color-pink"
+               style="top:10%;width:100%;margin-bottom: 5%;;padding:0">
+                Close
+            </a>
+        </div>
+        <div id="tableParent" style="background-color: rgba(0,0,0,0);height:88%;margin:0;padding:0">
+            <div id="container" style="background-color: rgba(0,0,0,0);width : 90%;height: 45%;margin: auto"></div>
+            <div id="container_back" style="background-color: rgba(0,0,0,0);width : 90%;height: 40%;margin: auto"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript" src="cordova.js"></script>
+
+
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="dist/js/framework7.min.js"></script>
+<!-- Path to your app js-->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?language=en"></script>
+<script type="text/javascript" src="js/google_map.js?v=1.1"></script>
+<script type="text/javascript" src="js/queryManager.js?v=1.2"></script>
+<script type="text/javascript" src="js/vsListManager.js?v=2.1"></script>
+<script type="text/javascript" src="js/tableManager.js?v=2.1"></script>
+<script type="text/javascript" src="js/my-app.js?v=2.1"></script>
+
+
+</body>
+</html>
