@@ -415,16 +415,17 @@
                     appendText(response);
                     appendText("Webservice has been restarted.");
 
-                    $("#modal-text").text("Restart Service Success");
+                    $("#modal-text").text("Restart Web Service Success");
 
                     $('#noticmodal').modal('show');
                     $('.loading1').hide();
 
                 },
                 error: function (xhr) {
+                    console.log(xhr);
                     appendText("Webservice failed restarted..");
 
-                    $("#modal-text").text("Update Query Count Failed");
+                    $("#modal-text").text("Restart Web Service Failed");
 
                     $('#noticmodal').modal('show');
                     $('.loading1').hide();

@@ -171,7 +171,7 @@ app.post('/restart_web_service',function (req, res) {
 	exec("/opt/lampp/xampp restart", function(error, stdout, stderr) {
   // command output is in stdout
   		console.log(stdout);
-  		res.send(stdout);
+  		res.send("1");
   		console.log('end:restart_web_service');
 	});
 	
@@ -179,7 +179,7 @@ app.post('/restart_web_service',function (req, res) {
 
 app.post('/stop_web_service',function (req, res) {
 	console.log('request stop_web_service');
-	res.send("0");
+	res.send("1");
 	console.log('end:stop_web_service');
 
 });
