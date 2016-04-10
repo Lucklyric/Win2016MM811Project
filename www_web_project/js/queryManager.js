@@ -16,18 +16,19 @@ function QueryManager(preloadIndiDiv,listManager,view1Tab){
                 string:testdata
             },
             success: function (response) {
-                if (response == "3"){
+                if (response == 3){
                     console.log("App service has been closed");
+                    myApp.alert('Service Closed!', 'Notice');
                 }else {
                     //console.log(response);
                     var par = JSON.parse(response);
                     //console.log(par);
                     view1Tab.trigger("click");
                     view1Tab.trigger("click");
-
                     listManager.updateList(par);
-                    queryManagerInstance.preloadIndi.hide();
+
                 }
+                queryManagerInstance.preloadIndi.hide();
             },
             error: function (xhr) {
                 //Do Something to handle error

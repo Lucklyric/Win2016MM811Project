@@ -39,7 +39,7 @@ function check_app_service_status(res){
 	if (app_service_status == 1){
 		return true;
 	}else{
-		res.send("3");
+		res.send('3');
 		return false;
 	}
 }
@@ -73,7 +73,10 @@ app.post('/fakequery',function (req, res) {
 	// 	res.send(m);
 	// });
 	// worker.send('a');
-	if (!check_app_service_status(res)){
+	if (app_service_status == 1){
+		
+	}else{
+		res.send('3');
 		return;
 	}
 	console.log('start:query');

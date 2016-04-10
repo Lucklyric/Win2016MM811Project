@@ -112,7 +112,24 @@
 
 <!-- jQuery -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../js/cookieManager.js"></script>
+<script>
+    /**
+     * check login cookies
+     */
+    var tmp_account = getAdminCookie('adminaccount');
+    var tmp_password = getAdminCookie('adminpassword');
 
+    console.log("get Admin cookies:" + tmp_account + tmp_password);
+    if (tmp_account != null && tmp_account != "" && tmp_password != null && tmp_password != "") {
+        var superAdminId = tmp_account;
+        var superAdminPwd = tmp_password;
+        setAdminCookie('adminaccount', superAdminId, 20);
+        setAdminCookie('adminpassword', superAdminPwd, 20);
+    } else {
+        self.location = 'login.html';
+    }
+</script>
 <!-- Bootstrap Core JavaScript -->
 <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
