@@ -93,11 +93,36 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Data Analysis</h1>
-                    
-                    <div id="container1" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
-
-                    <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="tabbable" id="tabs-296082">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active" onclick="clickActive('panel-691253')">
+                                            <a href="#panel-691253" data-toggle="tab">Query Over Time Line Chart</a>
+                                        </li>
+                                        <li onclick="clickActive('panel-261571')">
+                                            <a href="#panel-261571" data-toggle="tab">All Time Query Count Bar Chart</a>
+                                        </li>
+                                        <li onclick="clickActive('panel-261572')">
+                                            <a href="#panel-261572" data-toggle="tab">Query Percentage Pie Chart</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="panel-691253">
+                                        	<div id="container1" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
+                                        </div>
+                                		<div class="tab-pane" id="panel-261571">
+                                			<div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                                		</div>
+                                		<div class="tab-pane" id="panel-261572">
+                                		 <div id="container3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                                		</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -141,130 +166,184 @@
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 <script type="text/javascript">
-$(function () {
-    var listall = [];
-    var seriesOptions = [];
-    //[{"name":"MSFT","data":[[1238751100000,1],[1239148800000,2],[1239235200000,3],[1239580800000,4],[1239667200000,5],[1239753600000,6],[curtime,7]]},{"name":"AAPL","data":[[1239062400000,11],[1239148800000,12],[1239235200000,13],[1239580800000,14],[1239667200000,15],[1239753600000,16],[1239840000000,17]]},{"name":"GOOG","data":[[1239062400000,21],[1239148800000,22],[1239235200000,23],[1239580800000,24],[1239667200000,25],[1239753600000,26],[1239840000000,27]]},{"name":"BLZ","data":[[1238751100000,5],[1239148800000,6],[1239235200000,8],[1239580800000,14],[1239667200000,25],[1239753600000,36],[1239840000000,57]]}]
-    //names = ['MSFT', 'AAPL', 'GOOG'];
-    //names = ['PLAYGROUNDS','PUBLIC_SCHOOLS','CATHOLIC_SCHOOLS','SINGLE','DUPLEX','ROW_HOUSE','APARTMENT_FIVE','APARTMENT_FOUR','HOTEL','AGE_FOURTEEN','AGE_THIRTYFIVE','AGE_SIXTY','AGE_SIXTYPLUS','EMPLOYMENT_STUDENT','EMPLOYMENT_UNEMPLOYED','EMPLOYMENT_EMPLOYED'  ]
-    /**
-     * Create the chart when all data is loaded
-     * @returns {undefined}
-     */
-     
-    function createChart() {
 
-        $('#container1').highcharts('StockChart', {
-            rangeSelector: {
-                selected: 4
-            },
-            yAxis: {
-                labels: {
-                    formatter: function () {
-                        return (this.value > 0 ? '' : '') + this.value;
-                    }
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 2,
-                    color: 'silver'
-                }]
-            },
-            tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
-                valueDecimals: 2
-            },
-            legend: {
-                enabled:true,
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: seriesOptions
-        });
-    }
-    function createBar() {
-        $('#container2').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'All time User Query Count'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                'PLAYGROUNDS',
-                'PUBLIC_SCHOOLS',
-                'CATHOLIC_SCHOOLS',
-                'SINGLE',
-                'DUPLEX',
-                'ROW_HOUSE',
-                'APARTMENT_FIVE',
-                'APARTMENT_FOUR',
-                'HOTEL',
-                'AGE_FOURTEEN',
-                'AGE_THIRTYFIVE',
-                'AGE_SIXTY',
-                'AGE_SIXTYPLUS',
-                'EMPLOYMENT_STUDENT',
-                'EMPLOYMENT_UNEMPLOYED',
-                'EMPLOYMENT_EMPLOYED'  
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'queries'
+var listall = [];
+var seriesOptions = [];
+var pieList = [];
+//[{"name":"MSFT","data":[[1238751100000,1],[1239148800000,2],[1239235200000,3],[1239580800000,4],[1239667200000,5],[1239753600000,6],[curtime,7]]},{"name":"AAPL","data":[[1239062400000,11],[1239148800000,12],[1239235200000,13],[1239580800000,14],[1239667200000,15],[1239753600000,16],[1239840000000,17]]},{"name":"GOOG","data":[[1239062400000,21],[1239148800000,22],[1239235200000,23],[1239580800000,24],[1239667200000,25],[1239753600000,26],[1239840000000,27]]},{"name":"BLZ","data":[[1238751100000,5],[1239148800000,6],[1239235200000,8],[1239580800000,14],[1239667200000,25],[1239753600000,36],[1239840000000,57]]}]
+//names = ['MSFT', 'AAPL', 'GOOG'];
+names = ['PLAYGROUNDS','PUBLIC_SCHOOLS','CATHOLIC_SCHOOLS','SINGLE','DUPLEX','ROW_HOUSE','APARTMENT_FIVE','APARTMENT_FOUR','HOTEL','AGE_FOURTEEN','AGE_THIRTYFIVE','AGE_SIXTY','AGE_SIXTYPLUS','EMPLOYMENT_STUDENT','EMPLOYMENT_UNEMPLOYED','EMPLOYMENT_EMPLOYED'  ]
+/**
+ * Create the chart when all data is loaded
+ * @returns {undefined}
+ */
+ 
+function createChart() {
+
+    $('#container1').highcharts('StockChart', {
+        rangeSelector: {
+            selected: 4
+        },
+        yAxis: {
+            labels: {
+                formatter: function () {
+                    return (this.value > 0 ? '' : '') + this.value;
                 }
             },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} queries</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Query count of all time',
-                data: listall
+            plotLines: [{
+                value: 0,
+                width: 2,
+                color: 'silver'
             }]
-        });
-    }
-
-    $.ajax({
-        url: "http://54.186.220.31:8081/querycount/",
-        type: "post", //send it through get method
-        dataType:"json",
-        data :{
-            //string:testdata
         },
-
-        success: function (response) {
-            console.log(response);
-            all_data = JSON.parse(response);
-            seriesOptions=all_data[0];
-            listall=all_data[1];
-            createChart();
-            createBar();
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
+            valueDecimals: 2
         },
-        error: function (xhr) {
-            //Do Something to handle error
-        }
+        legend: {
+            enabled:true,
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: seriesOptions
     });
+}
+function createBar() {
+    $('#container2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'All time User Query Count'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+            'PLAYGROUNDS',
+            'PUBLIC_SCHOOLS',
+            'CATHOLIC_SCHOOLS',
+            'SINGLE',
+            'DUPLEX',
+            'ROW_HOUSE',
+            'APARTMENT_FIVE',
+            'APARTMENT_FOUR',
+            'HOTEL',
+            'AGE_FOURTEEN',
+            'AGE_THIRTYFIVE',
+            'AGE_SIXTY',
+            'AGE_SIXTYPLUS',
+            'EMPLOYMENT_STUDENT',
+            'EMPLOYMENT_UNEMPLOYED',
+            'EMPLOYMENT_EMPLOYED'  
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'queries'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} queries</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Query count of all time',
+            data: listall
+        }]
+    });
+}
+function createPie() {
+    $('#container3').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Percentage of the queries'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: pieList
+        }]
+    });
+}
+createChart();
+createBar();
+createPie();
+$.ajax({
+    url: "http://54.186.220.31:8081/querycount/",
+    type: "post", //send it through get method
+    dataType:"json",
+    data :{
+        //string:testdata
+    },
 
+    success: function (response) {
+        console.log(response);
+        all_data = JSON.parse(response);
+        seriesOptions=all_data[0];
+        listall=all_data[1];
+        var sum = 0;
+		$.each(listall,function() {
+		    sum += this;
+		});
+        for (i=0;i<names.length;i++){
+        	var dict = {};
+        	dict['name']=names[i];
+        	dict['y']=listall[i]/sum;
+        	pieList.push(dict);
+        }
+        createChart();
+        createBar();
+        createPie();
+    },
+    error: function (xhr) {
+        //Do Something to handle error
+    }
 });
+function clickActive(tabElement){
+	var idid=document.getElementById(tabElement);
+	idid.setAttribute("class","tab-pane active");
+	createChart();
+    createBar();
+    createPie();
+}
+
 </script>
 
 </body>
