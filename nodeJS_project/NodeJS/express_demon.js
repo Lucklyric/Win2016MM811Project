@@ -2,6 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var pythonShell = require('python-shell');
+var exec = require('child_process').exec;
 var web_service_status = 1;
 var app_service_status = 0;
 var options = {
@@ -43,6 +44,7 @@ function check_app_service_status(res){
 		return false;
 	}
 }
+
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -166,6 +168,10 @@ app.post('/start_app_server',function (req, res) {
 app.post('/restart_web_service',function (req, res) {
 	console.log('request restart_web_service');
 	res.send("0");
+	exec("echo aaa", function(error, stdout, stderr) {
+  // command output is in stdout
+  		console.log(stdout);
+	});
 	console.log('end:restart_web_service');
 
 });
