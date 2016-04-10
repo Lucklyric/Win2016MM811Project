@@ -247,7 +247,7 @@
     var tablesInformation;
     var public_table = null;
     var query_table = null;
-    var hostpath = "http://localhost:8081/";
+    var hostpath = "http://54.186.220.31:8081/";
     var app_service_status = 1;
 
     function refreshButton(){
@@ -412,6 +412,7 @@
 
                 success: function (response) {
                     console.log(response);
+                    appendText(response);
                     appendText("Webservice has been restarted.");
 
                     $("#modal-text").text("Restart Service Success");

@@ -167,13 +167,14 @@ app.post('/start_app_server',function (req, res) {
 */
 app.post('/restart_web_service',function (req, res) {
 	console.log('request restart_web_service');
-	res.send("0");
+	
 	exec("/opt/lampp/xampp restart", function(error, stdout, stderr) {
   // command output is in stdout
   		console.log(stdout);
+  		res.send(stdout);
+  		console.log('end:restart_web_service');
 	});
-	console.log('end:restart_web_service');
-
+	
 });
 
 app.post('/stop_web_service',function (req, res) {
