@@ -4,7 +4,7 @@
 function QueryManager(preloadIndiDiv,listManager,view1Tab){
     var queryManagerInstance = this;
     this.preloadIndi= preloadIndiDiv;
-    this.hostpath = "http://localhost:8081";
+    this.hostpath = "http://54.186.220.31:8081";
 
     this.fakeQuery = function(testdata){
         this.preloadIndi.show();
