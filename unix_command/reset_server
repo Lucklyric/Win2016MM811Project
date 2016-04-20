@@ -1,0 +1,5 @@
+#!/bin/sh
+sudo /opt/lampp/bin/mysql -u root < ~/Documents/MM811/MM811/Win2016MM811Project/sql_scripts/init_databse.sql
+python ~/Documents/MM811/MM811/Win2016MM811Project/python_script/update_server.py
+python ~/Documents/MM811/MM811/Win2016MM811Project/python_script/fake_daily_query.py
+
