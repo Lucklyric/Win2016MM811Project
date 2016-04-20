@@ -201,5 +201,9 @@ var server = app.listen(8081,function () {
   var port = server.address().port;
 
   console.log("App server http://%s:%s", host, port);
+  // automatic update query datasets
+  setTimeout(updateQuery, 24*60*60*1000);
+  // automatic update public datasets
+  setTimeout(updateTable, 7*24*60*60*1000);
 });
 
