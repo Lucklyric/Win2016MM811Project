@@ -1,4 +1,4 @@
-//express_demo.js 文件
+//express_demo.js 
 var express = require('express');
 var bodyParser = require('body-parser');
 var pythonShell = require('python-shell');
@@ -13,7 +13,7 @@ var options = {
 var app = express();
 var count = 0;
 
-
+//call correspoindg python scripts
 function updateTable(res){
 	pythonShell.run('../../python_script/update_server.py', options, function (err, results) {
   	if (err) throw err;
@@ -45,7 +45,7 @@ function check_app_service_status(res){
 	}
 }
 
-
+//initilize some parameters
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -67,6 +67,7 @@ app.get('/fakequery',function (req, res) {
 
 });
 
+// query request
 app.post('/fakequery',function (req, res) {
 	// var worker = fork('child_python.js')
 	
@@ -75,6 +76,8 @@ app.post('/fakequery',function (req, res) {
 	// 	res.send(m);
 	// });
 	// worker.send('a');
+
+	// check the status of the app service
 	if (app_service_status == 1){
 		
 	}else{
@@ -91,8 +94,8 @@ app.post('/fakequery',function (req, res) {
 	});
 });
 
+// return the query counts information
 app.post('/querycount',function (req, res) {
-
 
 	console.log('request query count');
     pythonShell.run('../../python_script/get_query_count.py', options, function (err, results) {
@@ -103,6 +106,7 @@ app.post('/querycount',function (req, res) {
 	});
 });
 
+//return the web service status
 app.post('/service_status',function (req, res) {
 
 	console.log('request service_status');
@@ -110,6 +114,7 @@ app.post('/service_status',function (req, res) {
 	console.log('end:service_status');
 });
 
+//return the app service status
 app.post('/app_service_status',function (req, res) {
 
 	console.log('request service_status');
@@ -117,7 +122,7 @@ app.post('/app_service_status',function (req, res) {
 	console.log('end:service_status');
 });
 
-
+// requert the table information
 app.post('/table_information',function (req, res) {
 
 	console.log('request tableInformation');
@@ -130,12 +135,14 @@ app.post('/table_information',function (req, res) {
 
 });
 
+//update the public table
 app.post('/update_table',function (req, res) {
 
 	console.log('request updateTable');
     updateTable(res);
 });
 
+// update the user query table
 app.post('/update_query',function (req, res) {
 
 	console.log('request querytable');
@@ -143,6 +150,7 @@ app.post('/update_query',function (req, res) {
 
 });
 
+//stop app service
 app.post('/stop_app_server',function (req, res) {
 
 	console.log('request stop_app_server');
@@ -152,6 +160,7 @@ app.post('/stop_app_server',function (req, res) {
 
 });
 
+// start app service
 app.post('/start_app_server',function (req, res) {
 
 	console.log('request start_app_server');
@@ -177,6 +186,7 @@ app.post('/restart_web_service',function (req, res) {
 	
 });
 
+//Stop web server
 app.post('/stop_web_service',function (req, res) {
 	console.log('request stop_web_service');
 	res.send("1");
@@ -184,7 +194,7 @@ app.post('/stop_web_service',function (req, res) {
 
 });
 
-
+// Start the server
 var server = app.listen(8081,function () {
 
   var host = server.address().address;
