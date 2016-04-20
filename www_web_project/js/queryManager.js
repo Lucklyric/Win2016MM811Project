@@ -1,11 +1,13 @@
 /**
  * Created by Alvin on 2016-04-01.
+ * The manager for query actions
  */
 function QueryManager(preloadIndiDiv,listManager,view1Tab){
     var queryManagerInstance = this;
     this.preloadIndi= preloadIndiDiv;
+    // set host path
     this.hostpath = "http://54.186.220.31:8081";
-
+    // ajax request
     this.fakeQuery = function(testdata){
         this.preloadIndi.show();
         $.ajax({
@@ -16,6 +18,7 @@ function QueryManager(preloadIndiDiv,listManager,view1Tab){
                 string:testdata
             },
             success: function (response) {
+                // Check if the service has ben closed
                 if (response == 3){
                     console.log("App service has been closed");
                     myApp.alert('Service Closed!', 'Notice');

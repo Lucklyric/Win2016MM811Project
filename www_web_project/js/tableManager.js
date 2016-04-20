@@ -1,6 +1,9 @@
 /**
  * Created by Alvin on 2016-04-02.
+ * Highchats table manager
  */
+
+// custom theme
 Highcharts.createElement('link', {
     href: '//fonts.googleapis.com/css?family=Unica+One',
     rel: 'stylesheet',
@@ -209,6 +212,16 @@ Highcharts.theme = {
 
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
+
+/**
+ * intilize the table manager
+ * @param tableContainer
+ * @param vsInstance
+ * @param floatButtionDiv
+ * @param labelDiv
+ * @param type
+ * @constructor
+ */
 function TableManager(tableContainer,vsInstance,floatButtionDiv,labelDiv,type){
     var tableManagerInstance = this;
     this.tableDiv = tableContainer;
@@ -218,6 +231,7 @@ function TableManager(tableContainer,vsInstance,floatButtionDiv,labelDiv,type){
     this.label = labelDiv;
     this.title = "";
     this.categories = [];
+    // check type of the table
     if (type == 1){
         this.categories=['Playgrounds', 'Public Schools', 'Catholic School', 'SingleHouse', 'DuplexHouse','RowHouse','Apartment Five', 'Apartment Four', 'Hotel'];
         this.defaultdata = [0,0,0,0,0,0,0,0,0];
@@ -238,6 +252,9 @@ function TableManager(tableContainer,vsInstance,floatButtionDiv,labelDiv,type){
         }
     });
 
+    /**
+     * Init the table
+     */
     this.initTable = function(){
         tableManagerInstance.highChartTable = new Highcharts.Chart({
             title:{

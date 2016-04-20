@@ -326,6 +326,9 @@
         });
     }
 
+    /**
+     * Refresh the table data
+     */
     function refreshTableData(){
         public_table.clear();
         var publicTbaleinfo = tablesInformation[0];
@@ -374,8 +377,11 @@
     }
 
 
-
+    /**
+     * Document ready actions
+     */
     $(document).ready(function () {
+        /*Check the status of the server*/
         checkServerStatus();
         public_table = $('#publicTable').DataTable( {
             bAutoWidth: false ,
@@ -393,6 +399,7 @@
                 { "sWidth": "30%"}
             ]
         } );
+        /*Get table informations*/
         getTablesInformation();
 
         /**

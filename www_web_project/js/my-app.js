@@ -1,5 +1,6 @@
 // Initialize app and store it to myApp variable for futher access to its methods
 var myApp = new Framework7({material:true});
+// Set all instances
 var myQuery,myVsList,myMapManager,myTableManager,myTableManager_back;
 // We need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
@@ -30,8 +31,9 @@ $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
     myApp.alert('Here comes About page');
 });
 
-
+// Ready functions
 $(document).ready(function(){
+    // initilize all the instances
     $.ajaxSetup({ cache: false });
     myMapManager = new MapManager();
     myMapManager.initialize();
@@ -40,6 +42,7 @@ $(document).ready(function(){
     myTableManager = new TableManager("container",myVsList,$("#detailButton"),$("#detail_Title"),1);
     myTableManager_back = new TableManager("container_back",myVsList,$("#detailButton"),$("#detail_Title"),2);
 
+    // Init the table manager
     myTableManager.initTable();
     myTableManager_back.initTable();
     $$("#jumpButton").click(function(){
@@ -56,6 +59,7 @@ $(document).ready(function(){
      */
     $("#fakequery").click(function(){
 
+        // Format the query options based on the user query options
         var queryArray=[];
         queryArray.push(parseInt($('input[name="play"]:checked').val()));
         queryArray.push(parseInt($('input[name="pSchool"]:checked').val()));
@@ -135,6 +139,7 @@ $(document).ready(function(){
 
         }
         console.log(queryString);
+        // Send query request
         myQuery.fakeQuery(queryString);
     });
 

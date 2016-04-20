@@ -1,5 +1,6 @@
 /**
  * Created by Alvin on 2016-03-30.
+ * Google map manager
  */
 function MapManager(){
     var mapInstance = this;
@@ -8,7 +9,9 @@ function MapManager(){
     this.desMarker=null;
     this.desPoly=null;
 
+    // initialize the google map
     this.initialize=function() {
+        // default property
         var mapProp = {
             center:new google.maps.LatLng(70.508742,53.120850),
             zoom:10,
@@ -17,6 +20,7 @@ function MapManager(){
         mapInstance.map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
         // Try HTML5 geolocation.
         var myCenter;
+        // get current location
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 myCenter = {
@@ -41,6 +45,10 @@ function MapManager(){
         $("#googleMap").show();
     };
 
+    /**
+     * The function to move to the selected neiberhooods.
+     * @param neiData
+     */
     this.moveToNei = function(neiData){
         console.log("start update map");
         console.log(neiData);
@@ -62,8 +70,7 @@ function MapManager(){
             animation:google.maps.Animation.BOUNCE
         });
 
-        //draw poly
-
+        // draw the boundrary of the neigerboods.
         var triangleCoords = [];
         for (var i = 0 ; i < neiInfo["area"].length ; i++){
             var pos = {

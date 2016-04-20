@@ -1,5 +1,6 @@
 /**
  * Created by Alvin on 2016-04-01.
+ * virtual list view manager
  */
 function VsListManager(apInstance,_vslistDiv,newqueryDiv,_mapInstance) {
     var vsListMangerInstance = this;
@@ -30,7 +31,7 @@ function VsListManager(apInstance,_vslistDiv,newqueryDiv,_mapInstance) {
         //            '</div>'+
         //        '</a>'+
         //    '</li>'
-
+        // template based on the updated item
         renderItem: function (index, item) {
             return'<li class="vsItem" id="'+index+'">'+
                     '<a href="#" class="item-link item-content " style="background-color: black">'+
@@ -46,6 +47,10 @@ function VsListManager(apInstance,_vslistDiv,newqueryDiv,_mapInstance) {
         }
     });
 
+    /**
+     * Update the items of the list view
+     * @param data
+     */
     this.updateList = function(data){
         console.log(data);
         vsListMangerInstance.currentData = data;
@@ -82,9 +87,14 @@ function VsListManager(apInstance,_vslistDiv,newqueryDiv,_mapInstance) {
         //    vsListMangerInstance.currentItem =$(this);
         //    vsListMangerInstance.updateMap($("li").index($(this)));
         //});
+
+        /**
+         * Click callback actions
+         * @param item
+         */
         this.clickedItem = function(item){
             console.log("click"+item.id);
-
+            // change background color
             if (vsListMangerInstance.currentItem) {
                         vsListMangerInstance.currentItem.children().css("background-color", "black");
                     }
@@ -96,11 +106,17 @@ function VsListManager(apInstance,_vslistDiv,newqueryDiv,_mapInstance) {
 
     };
 
-
+    /**
+     * call map manger function to move to the center of the selected neiberhoods.
+     * @param index
+     */
     this.updateMap = function(index){
         vsListMangerInstance.mapInstance.moveToNei(vsListMangerInstance.currentData[index]);
     };
 
+    /**
+     * bind jQuery call back functions
+     */
     $(document).on('click', 'li.vsItem', function(){
         vsListMangerInstance.clickedItem(this);
     });
