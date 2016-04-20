@@ -5,7 +5,9 @@ import datetime
 import time
 import random
 from random import randint
-
+"""
+This python file creates fake daily queries.
+"""
 def strTimeProp(start, end, format, prop):
     """Get a time at a proportion of a range of two formatted times.
 
@@ -22,7 +24,7 @@ def strTimeProp(start, end, format, prop):
 
     return time.strftime(format, time.localtime(ptime))
 
-
+# return a random date
 def randomDate(start, end, prop):
     return strTimeProp(start, end, '%Y-%m-%d', prop)
 

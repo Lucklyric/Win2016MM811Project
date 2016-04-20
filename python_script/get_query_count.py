@@ -5,7 +5,9 @@ import math
 from operator import itemgetter
 import datetime
 import time
-
+"""
+This file counts the daily query of each living factors
+"""
 def main():
     cnx = mysql.connector.connect(user='root', password='',
                                   host='localhost',

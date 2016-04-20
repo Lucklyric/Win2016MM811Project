@@ -5,7 +5,9 @@ import time
 from pprint import pprint
 import datetime
 from datetime import date, timedelta as td
-
+"""
+This file update the daily query table every day
+"""
 def main():   
 
     cnx = mysql.connector.connect(user='root', password='',

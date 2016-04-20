@@ -3,7 +3,7 @@ import json
 import mysql.connector
 import datetime
 import time
-
+# this python file get the information of the public datasets from our database
 def main():
     cnx = mysql.connector.connect(user='root', password='',
                                   host='localhost',

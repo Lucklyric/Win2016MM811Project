@@ -2,7 +2,9 @@ import urllib2
 import json
 from pprint import pprint
 import mysql.connector
-
+"""
+This file contain the functions that initialize the server
+"""
 #function defination
 def get_polygon(poly):
     coords=[]
@@ -15,7 +17,7 @@ def get_polygon(poly):
         coord=polysplit[i];
         coords.append(coord)        
     return coords
-
+#get min and max of the polygon
 def get_min_max(polygon):
     coords=get_polygon(polygon)
     latis=[];
@@ -35,11 +37,11 @@ def get_min_max(polygon):
     min_max.append(longis[0])
     min_max.append(longis[len(longis)-1])
     return min_max
-
+# check if the location is inside the polygon
 def check_inside(latitude,longitude,min_max):
     if latitude>=min_max[0] and latitude<=min_max[1] and longitude>=min_max[2] and longitude<=min_max[3]:
         return True
-
+# insert the neighbourhood information
 def insert_to_neibourhood():
     cnx = mysql.connector.connect(user='root', password='',host='localhost',database='mm811project')
     
@@ -66,6 +68,7 @@ def insert_to_neibourhood():
         cnx.commit()
     cursor.close()
     cnx.close()
+# insert the count into major table
 def insert_to_major():
     cnx = mysql.connector.connect(user='root', password='',host='localhost',database='mm811project')
     
@@ -179,6 +182,7 @@ def insert_to_major():
             cursorm.close()
     cursor.close()
     cnx.close()
+# insert public database information
 def insert_to_relative_data():
     cnx = mysql.connector.connect(user='root', password='',host='localhost',database='mm811project')
     

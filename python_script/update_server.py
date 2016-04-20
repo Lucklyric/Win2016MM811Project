@@ -3,7 +3,9 @@ import json
 from pprint import pprint
 import mysql.connector
 from init_server import *
-
+"""
+This file get the dataset from url and parse the data and call init_server.py to initialize the database.
+"""
 #Neighbourhood name
 urlNNmeta="https://data.edmonton.ca/api/views/65fr-66s6"
 #Neighbourhood Boundaries

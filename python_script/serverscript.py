@@ -5,10 +5,13 @@ import mysql.connector
 import math
 from operator import itemgetter
 import sys
-
+"""
+This file contain the logic to calculate the score for each user query
+"""
 cnx = mysql.connector.connect(user='root', password='',
                               host='localhost',
                               database='mm811project')
+# get the polygon
 def get_polygon(poly):
     coords=[]
     poly=poly.replace("(","")
@@ -21,6 +24,7 @@ def get_polygon(poly):
         coords.append(coord)        
     return coords
 
+# convert the polygon to a list of coords
 def convert_to_list(polygon):
     coords=get_polygon(polygon)
     coords_list=[]
@@ -33,6 +37,7 @@ def convert_to_list(polygon):
     #pprint(coords_list)
     return coords_list
 
+# output the result into json format into the pipeline
 def json_output(user_query):
     cursorm = cnx.cursor()
     maxs=[]
